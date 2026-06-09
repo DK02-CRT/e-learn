@@ -1,2 +1,10 @@
 #środowisko wirtualne
 venv/
+
+#zmienne środowiskowe
+.env
+# pamięć cache python
+__pycache__/
+*.pyc
+# baza danych
+db.sqlite3

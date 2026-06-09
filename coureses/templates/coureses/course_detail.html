@@ -3,13 +3,16 @@
 <!DOCTYPE html>
 <html lang="pl">
   <head>
-    <title>E-learn</title>
+    <!-- <title>E-learn</title> -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'e_learn/style.css' %}">
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
   </head>
   <body>
     <header>
+        <a href="{% url 'home' %}">
+            Wróć do kursów
+        </a>
       <h2><p>Portal e-learningowy</p></h2>
       <div>
         <a href="">
@@ -18,18 +21,15 @@
       </div>
     </header>
     <main>
-      {%for course in courses%}
-        <div class="course">
-          {% if course.image %}
-            <img src="{{course.image.url}}" alt="{{course.title}}">
-          {% endif %}
-          <a href="{% url 'course_detail' course.slug %}">
-            <h3>{{ course.title }}</h3>
+        <h1>{{ course.title }}</h1>
+      {%for top in topics%}
+        <div class="topic">
+            <a href="{% url 'topic_detail' top.pk %}">
+            <h3>{{ top.title }}</h3>
           </a>
-          <p>{{course.desc}}</p>
         </div>
       {% empty %}
-        <p>Przepraszam, ale nie ma na razie dostępnych kursów.</p>
+        <p>Brak tematów.</p>
       {% endfor %}
     </main>
     <footer>

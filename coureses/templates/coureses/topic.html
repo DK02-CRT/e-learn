@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <!-- <title>E-learn</title> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+  </head>
+  <body>
+    <header>
+        <a href="{% url 'course_detail' topics.course.slug %}">
+            Wróć do tematów
+        </a>
+      <h2><p>Portal e-learningowy</p></h2>
+      <div>
+        <a href="">
+          Logowanie
+        </a>
+      </div>
+    </header>
+    <main>
+        <h1>{{ topics.title }}</h1>
+        <p>{{ topics.content|safe }}</p>
+      {%for task in tasks%}
+        <div class="task">
+            <p>Pytanie {{forloop.counter}}</p>
+            <p>{{task.content}}</p>
+            <div>
+                {% for answer in task.answers.all %}
+                <input type="checkbox" name="" id="">{{answer.content}}
+                {% empty %}
+                <p>BŁĄD</p>
+                {% endfor %}
+            </div>
+        </div>
+      {% empty %}
+        <p>Brak tematów.</p>
+      {% endfor %}
+    </main>
+    <footer>
+        <p>rtrt</p>
+    </footer>
+  </body>
+</html>
