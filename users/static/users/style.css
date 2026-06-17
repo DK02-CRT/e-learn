@@ -22,30 +22,30 @@ footer{
     background: green;
     height: 300px;
 }
-.course{
+/* .course{
     border: 3px solid black;
     margin: 5px;
     width: 500px;
     padding: 5px;
-}
-ol, ul {
+} */
+/* ol, ul {
 	list-style: none;
-}
-blockquote, q {
+} */
+/* blockquote, q {
 	quotes: none;
-}
-img{
+} */
+/* img{
     height: 150px;
-}
-blockquote:before, blockquote:after,
+} */
+/* blockquote:before, blockquote:after,
 q:before, q:after {
 	content: '';
 	content: none;
-}
-table {
+} */
+/* table {
 	border-collapse: collapse;
 	border-spacing: 0;
-}
+} */
 main{
     display: flex;
     flex-direction: row;

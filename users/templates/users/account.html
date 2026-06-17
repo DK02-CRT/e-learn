@@ -1,0 +1,29 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <title>E-learn</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'e_learn/style.css' %}">
+  </head>
+  <body>
+    <header>
+      <h2><p>Portal e-learningowy</p></h2>
+      <a href="{% url 'signout' %}">Wyloguj</a>
+    </header>
+    <main>
+        <h1>Moje konto</h1>
+        <p>login:{{user.username}}</p>
+        <p>email:{{user.email}}</p>
+        <p>created:{{user.created_at}}</p>rrr
+        <!-- {% if user.avatar %} -->
+            <img src="{{user.avatar.url}}" alt="user avatar">
+        <!-- {% endif %} -->
+    </main>
+    <footer>
+        <p>rtrt</p>
+    </footer>
+  </body>
+</html>

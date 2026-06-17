@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import course_detail, topic_detail
+from .views import course_detail
+from .views import topic_detail
 
 urlpatterns = [
     path('<slug:slug>/', course_detail, name='course_detail'),
