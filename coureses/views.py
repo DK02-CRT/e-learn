@@ -3,7 +3,7 @@ from .models import Course
 
 def course_detail(request, slug):
     course = get_object_or_404(Course, slug=slug)
-    topic = course.topics.all()
+    # topic = course.topics.all()
 
     return render(request, 'coureses/course_detail.html', {
         # 'topics': topic,
