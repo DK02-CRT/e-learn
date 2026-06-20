@@ -1,0 +1,38 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <!-- <title>E-learn</title> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+  </head>
+  <body>
+    <header>
+        <a href="{% url 'home' %}">
+            Powrót na stronę główną
+        </a>
+      <h2><p>Portal e-learningowy</p></h2>
+      <div>
+        <a href="">
+          Logowanie
+        </a>
+      </div>
+    </header>
+    <main>
+        <h1>Wyniki postępów</h1>
+        <div class="">
+          <div class="res_course">
+            <h3>Wyniki kursów</h3>
+          </div>
+          <div class="res_quiz">
+            <h3>Wyniki quizów</h3>
+          </div>
+        </div>
+    </main>
+    <footer>
+        <p>rtrt</p>
+    </footer>
+  </body>
+</html>
