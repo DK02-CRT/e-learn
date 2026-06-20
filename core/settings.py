@@ -42,7 +42,9 @@ INSTALLED_APPS = [
     'users',
     'e_learn',
     'coureses',
-    'ckeditor'
+    'ckeditor',
+    'quizes', 
+    'users'
 ]
 
 MIDDLEWARE = [
@@ -92,8 +94,6 @@ DATABASES = {
     }
 }
 
-AUTH_USER_MODEL = "users.User"
-
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
 
@@ -141,4 +141,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 load_dotenv()
 
-LOGIN_URL = "users/signin"
+AUTH_USER_MODEL = "users.User"

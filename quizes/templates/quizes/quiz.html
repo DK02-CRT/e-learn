@@ -1,0 +1,48 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <!-- <title>E-learn</title> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+  </head>
+  <body>
+    <header>
+        <a href="{% url 'home' %}">
+            Wróć do tematów
+        </a>
+      <h2><p>Portal e-learningowy</p></h2>
+      <div>
+        <a href="">
+          Logowanie
+        </a>
+      </div>
+    </header>
+    <main>
+        <h1>Quizy</h1>
+        <p>{{ quiz.title }}</p>
+        {%for task in tasks%}
+        <div class="task">
+            <p>{{task.context}}</p>
+
+            {%for answer in task.quizAnswers.all %}
+            <div class="answer">
+                <input type="checkbox" name="" id="">
+                {{answer.option}}
+
+            {% empty %}
+                <p>BŁĄD - brak odp</p>
+                </div>
+            {% endfor %}
+        {% empty %}
+            <p>BŁĄD - brak zadań</p>
+            </div>
+        {% endfor %}
+    </main>
+    <footer>
+        <p>rtrt</p>
+    </footer>
+  </body>
+</html>
