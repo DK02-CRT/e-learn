@@ -1,10 +1,22 @@
+html{
+    margin: 0;
+    padding: 0;
+}
 body{
     margin: 0px;
+    padding: 0;
 }
 header{
     background: gray;
     color: white;
     height: 100px;
+}
+p{
+    padding: 0;
+    margin: 0;
+}
+h2{
+    margin: 0;
 }
 footer{
     background: green;
@@ -15,9 +27,6 @@ footer{
     margin: 5px;
     width: 500px;
     padding: 5px;
-}
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
 }
 ol, ul {
 	list-style: none;
@@ -36,4 +45,8 @@ q:before, q:after {
 table {
 	border-collapse: collapse;
 	border-spacing: 0;
+}
+main{
+    display: flex;
+    flex-direction: row;
 }
