@@ -1,13 +1,13 @@
 from django.db import models
 from ckeditor.fields import RichTextField
 from django.contrib.auth import get_user_model
-# User = get_user_model()
+from django.conf import settings
 
 # model przedmiotu
 class Course(models.Model):
     title = models.CharField(max_length=100)
     desc = models.TextField()
-    slug = models.SlugField(unique=True)
+    slug = models.SlugField(unique=True, null=True)
 
     image = models.ImageField(
         upload_to='coureses/',
@@ -62,7 +62,8 @@ class Quiz(models.Model):
 class Question(models.Model):
     quiz = models.ForeignKey(
         Quiz, 
-        on_delete=models.CASCADE, 
+        on_delete=models.CASCADE,
+        null=True, 
         related_name="questions")
     content = models.TextField()
 
@@ -83,41 +84,41 @@ class Answer(models.Model):
         return self.content
     
 # model procesu usera
-# class UserProgress(models.Model):
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#         related_name='progress'
-#     )
-#     lesson = models.ForeignKey(
-#         Lesson,
-#         on_delete=models.CASCADE,
-#         related_name='progress'
-#     )
+class UserProgress(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='progress'
+    )
+    lesson = models.ForeignKey(
+        Lesson,
+        on_delete=models.CASCADE,
+        related_name='progress'
+    )
 
-#     completed = models.BooleanField(default=False)
-#     completed_at = models.DateTimeField(null=True, blank=True)
+    completed = models.BooleanField(default=False)
+    completed_at = models.DateTimeField(null=True, blank=True)
 
-#     class Meta:
-#         unique_together = ("user", "lesson")
+    class Meta:
+        unique_together = ("user", "lesson")
 
-#     def __str__(self):
-#         return f"{self.user} - {self.lesson} - {self.completed}"
+    def __str__(self):
+        return f"{self.user} - {self.lesson} - {self.completed}"
 
 
-# class Result(models.Model):
-#     user = models.ForeignKey(
-#         User,
-#         on_delete=models.CASCADE,
-#         related_name='quiz_results'
-#     )
-#     quiz = models.ForeignKey(
-#         Quiz,
-#         on_delete=models.CASCADE,
-#         related_name='results'
-#     )
+class Result(models.Model):
+    user = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name='quiz_results'
+    )
+    quiz = models.ForeignKey(
+        Quiz,
+        on_delete=models.CASCADE,
+        related_name='results'
+    )
 
-#     score = models.IntegerField()
-#     max_score = models.IntegerField()
+    score = models.IntegerField()
+    max_score = models.IntegerField()
 
-#     created_at = models.DateTimeField(auto_now_add=True)
+    created_at = models.DateTimeField(auto_now_add=True)
