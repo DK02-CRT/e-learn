@@ -1,10 +1,9 @@
 from django.shortcuts import render
-from .models import Course
-from django.http import HttpResponse
+from .models import Mode
 
 def home (request):
-    courses = Course.objects.all()
+    modes = Mode.objects.all()
 
     return render(request, "e_learn/strona.html", {
-        "courses": courses
+        "modes": modes
     })

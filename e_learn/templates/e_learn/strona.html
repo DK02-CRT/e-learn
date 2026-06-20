@@ -18,22 +18,18 @@
       </div>
     </header>
     <main>
-      {%for course in courses%}
+      {%for mode in modes%}
         <div class="course">
-          {% if course.image %}
-            <img src="{{course.image.url}}" alt="{{course.title}}">
-          {% endif %}
-          <a href="{% url 'course_detail' course.slug %}">
-            <h3>{{ course.title }}</h3>
+          <a href="">
+            <img src="{{mode.image}}" alt="{{mode.name}}">
           </a>
-          <p>{{course.desc}}</p>
         </div>
       {% empty %}
-        <p>Przepraszam, ale nie ma na razie dostępnych kursów.</p>
+        <p>Przepraszamy, napotkaliśmy jakiś problem.</p>
       {% endfor %}
     </main>
     <footer>
-        <p>rtrt</p>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
   </body>
 </html>
