@@ -10,8 +10,8 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'course_detail' topics.course.slug %}">
-            Wróć do tematów
+        <a href="{% url 'course_detail' course.slug %}">
+            Wróć do modułów
         </a>
       <h2><p>Portal e-learningowy</p></h2>
       <div>
@@ -21,17 +21,29 @@
       </div>
     </header>
     <main>
-        <h1>{{ topics.title }}</h1>
-        <p>{{ topics.content|safe }}</p>
-      {%for task in tasks%}
-        <div class="task">
-            <p>Pytanie {{forloop.counter}}</p>
-            <p>{{task.content}}</p>
-            <div>
-                {% for answer in task.answers.all %}
-                <input type="checkbox" name="" id="">{{answer.content}}
+        <h1>{{ module.title }}</h1>
+        {{ module.content|safe }}
+      {%for topic in topics%}
+        <div class="topic">
+            <i><p>Temat: {{topic.title}}</p></i>
+            <p>{{topic.content|safe}}</p>
+            <div style="border: 4px solid red;">
+                {% for quest in topic.quests.all %}
+                <form action="" method="post">
+                  {% for question in quest.questions.all %}
+                    {{question.content|safe}}
+                    {% for answer in question.answers.all %}
+                      <input type="checkbox" name="" id="" value="{{answer.is_correct}}">{{answer.content}}
+                      {% empty %}
+                      <p>BŁĄD - brakuje odpowiedzi</p>
+                    {% endfor %}
+                  {% empty %}
+                  <p>BŁĄD - brakuje pytań</p>
+                  {% endfor %}
+                  <input type="submit" value="Sprawdź">
+                </form>
                 {% empty %}
-                <p>BŁĄD</p>
+                <p>BŁĄD - brakuje zadań</p>
                 {% endfor %}
             </div>
         </div>

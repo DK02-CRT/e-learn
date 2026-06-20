@@ -1,0 +1,39 @@
+body{
+    margin: 0px;
+}
+header{
+    background: gray;
+    color: white;
+    height: 100px;
+}
+footer{
+    background: green;
+    height: 300px;
+}
+.course{
+    border: 3px solid black;
+    margin: 5px;
+    width: 500px;
+    padding: 5px;
+}
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+img{
+    height: 150px;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}

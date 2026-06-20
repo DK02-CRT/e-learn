@@ -11,7 +11,7 @@
   <body>
     <header>
         <a href="{% url 'home' %}">
-            Wróć do kursów
+            Wróć do tematów
         </a>
       <h2><p>Portal e-learningowy</p></h2>
       <div>
@@ -21,16 +21,15 @@
       </div>
     </header>
     <main>
-        <h1>{{ course.title }}</h1>
-      {%for module in modules%}
-        <div class="topic">
-            <a href="{% url 'topic_detail' module.pk %}">
-            <h3>{{ module.title }}</h3>
-          </a>
-        </div>
-      {% empty %}
-        <p>Brak tematów.</p>
-      {% endfor %}
+        <h1>Quizy</h1>
+        <p>{{ quiz.title }}</p>
+        {%for quiz in quizes%}
+        <div class="task">
+            <a href="{% url 'quiz_detail' quiz.pk %}">{{quiz.title}}</a>
+        {% empty %}
+            <p>BŁĄD</p>
+        {% endfor %}
+            </div>
     </main>
     <footer>
         <p>rtrt</p>
