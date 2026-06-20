@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'coureses',
     'ckeditor',
     'quizes', 
-    'users'
+    'users',
+    'results'
 ]
 
 MIDDLEWARE = [

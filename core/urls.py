@@ -24,7 +24,8 @@ urlpatterns = [
     path('', include('e_learn.urls')),
     path('courses/', include('coureses.urls')),
     path('users/', include('users.urls')),
-    path('quizes/', include('quizes.urls'))
+    path('quizes/', include('quizes.urls')),
+    path('results/', include('results.urls'))
 ]
 
 if settings.DEBUG:
