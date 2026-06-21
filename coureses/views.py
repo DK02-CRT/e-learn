@@ -1,13 +1,11 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Course, Module, Topic, Quest, Question, Answer
 
-def course_detail(request, slug):
-    course = get_object_or_404(Course, slug=slug)
-    module = course.modules.all()
+def courses(request):
+    courses = Course.objects.all()
 
-    return render(request, 'coureses/course_detail.html', {
-        'modules': module,
-        'course':course
+    return render(request, 'coureses/courses.html', {
+        'courses':courses
     })
 
 def topic_detail(request, pk):

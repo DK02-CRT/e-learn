@@ -1,0 +1,44 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <!-- <title>E-learn</title> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+  </head>
+  <body>
+    <header>
+      <div class="login"></div>
+      <h2><p class="header">Portal e-learningowy</p></h2>
+      <div class="login">
+        <a href="{% url 'signin' %}">
+          Logowanie
+        </a>
+      </div>
+    </header>
+    <main>
+      <h1>Dostępne kursy</h1>
+      {%for course in courses%}
+          <div class="topic">
+            <h3>{{course.title}}</h3>
+              <ul>
+                {% for module in course.modules.all %}
+                  <li>{{module.title}}</li>
+                {% empty %}
+                  <p>Przepraszamy, brak dostępnych kursów.</p>
+                {% endfor %}
+              </ul>
+            <h3>{{ module.title }}</h3>
+          </a>
+        </div>
+      {% empty %}
+        <p>Przepraszamy, brak dostępnych kursów.</p>
+      {% endfor %}
+    </main>
+    <footer>
+        <p>rtrt</p>
+    </footer>
+  </body>
+</html>
