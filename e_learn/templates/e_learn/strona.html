@@ -10,8 +10,9 @@
   </head>
   <body>
     <header>
-      <h2><p>Portal e-learningowy</p></h2>
-      <div>
+      <div class="login"></div>
+      <h2><p class="header">Portal e-learningowy</p></h2>
+      <div class="login">
         <a href="{% url 'signin' %}">
           Logowanie
         </a>
@@ -20,7 +21,7 @@
     <main>
       {%for mode in modes%}
         <div class="course">
-          <a href="">
+          <a href="{{mode.url}}">
             <img src="{{mode.image}}" alt="{{mode.name}}">
           </a>
         </div>

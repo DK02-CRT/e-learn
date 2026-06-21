@@ -7,6 +7,7 @@ class Mode(models.Model):
         blank=True,
         null=True
     )
+    url = models.CharField(max_length=50)
 
     def __str__(self):
         return self.name
