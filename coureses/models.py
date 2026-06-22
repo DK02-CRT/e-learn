@@ -38,6 +38,7 @@ class Topic(models.Model):
         related_name='topics'
     )
     title = models.CharField(max_length=100)
+    order = models.PositiveBigIntegerField(default=0)
     content = RichTextField()
 
     def __str__(self):
@@ -63,6 +64,10 @@ class Question(models.Model):
         related_name='questions'
     )
     content = RichTextField()
+    order = models.PositiveBigIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.content

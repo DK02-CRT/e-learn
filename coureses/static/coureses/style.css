@@ -1,23 +1,62 @@
 body{
     margin: 0px;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: grid;
+    min-height: 100vh;
+    grid-template-columns: 1fr;
+    grid-template-rows: 10vh 5fr 10vh;
+    grid-template-areas: 
+                        "head"
+                        "middl"
+                        "foot";
 }
 header{
+    display: flex;
+    flex-direction: row;
     background: gray;
     color: white;
-    height: 100px;
+    grid-area: head;
+    justify-content: space-between;
 }
-footer{
-    background: green;
-    height: 300px;
+h2, p.header{
+    margin: 0;
+    width: calc(100vw-10vh);
+}
+.login{
+    width: 10vh;
+}
+main{
+    grid-area: middl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.courses{
+    /* border: 3px solid black; */
+    margin: 5px;
+    /* width: 500px; */
+    padding: 5px;
+    display: grid;
+    /* flex-wrap: wrap; */
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem;
 }
 .course{
     border: 3px solid black;
     margin: 5px;
-    width: 500px;
+    /* width: 50%; */
+    box-sizing: border-box;
     padding: 5px;
 }
-article, aside, details, figcaption, figure, 
-footer, header, hgroup, menu, nav, section {
+.topic{
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+footer{
+    background: green;
+    grid-area: foot;
 }
 ol, ul {
 	list-style: none;

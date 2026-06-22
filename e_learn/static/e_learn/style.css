@@ -21,6 +21,7 @@ header{
 h2, p.header{
     margin: 0;
     width: calc(100vw-10vh);
+    align-items: center;
 }
 footer{
     background: green;

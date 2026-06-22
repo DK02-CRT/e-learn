@@ -1,0 +1,42 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <!-- <title>E-learn</title> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+  </head>
+  <body>
+    <header>
+        <a href="{% url 'courses' %}">
+            Wróć do kursów
+        </a>
+      <h2><p>Portal e-learningowy</p></h2>
+      <div>
+        <a href="">
+          Logowanie
+        </a>
+      </div>
+    </header>
+    <main>
+        <h1>{{ module.title }}</h1>
+        {{ module.content|safe }}
+      {%for topic in topics%}
+        <div class="module">
+          <a href="{% url 'topic_detail' slug=course.slug module_pk=module.pk topic_pk=topic.pk%}">
+            <i>
+              <p>Temat: {{topic.title}}</p>
+            </i>
+          </a>
+        </div>
+      {% empty %}
+        <p>Brak tematów.</p>
+      {% endfor %}
+    </main>
+    <footer>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
+    </footer>
+  </body>
+</html>
