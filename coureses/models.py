@@ -79,7 +79,7 @@ class Answer(models.Model):
         on_delete=models.CASCADE,
         related_name='answers'
     )
-    content = models.CharField(max_length=255)
+    content = RichTextField()
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):

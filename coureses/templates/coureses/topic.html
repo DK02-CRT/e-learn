@@ -28,13 +28,16 @@
       {%for quest in quests%}
         <div class="topic">
           <form action="" method="post">
+            {% csrf_token %}
           {% for question in quest.questions.all %}
-            <p>Pytanie: {{question.content|safe}}</p>
+            <p>{{question.content|safe}}</p>
+            <div class="ans">
             {% for answer in question.answers.all %}
-              <input type="checkbox" name="" id="" value="{{answer.is_correct}}">{{answer.content}}
+              <p><input type="checkbox" name="answers" id="" value="{{answer.id}}">{{answer.content|safe}}</p>
             {% empty %}
               <p>BŁĄD - brakuje odpowiedzi</p>
             {% endfor %}
+            </div>
           {% empty %}
             <p>BŁĄD - brakuje pytań</p>
           {% endfor %}
@@ -44,6 +47,12 @@
       {% empty %}
         <p>Brak zestawu pytań.</p>
       {% endfor %}
+      {% if score is not None %}
+      <div class="result">
+          <h2>Twój wynik</h2>
+          <p>{{ score }} / {{ max_score }}</p>
+      </div>
+      {% endif %}
     </main>
     <footer>
         <p>Strona wykonana przez - Dawid Kasperczyk</p>

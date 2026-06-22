@@ -61,6 +61,11 @@ footer{
 ol, ul {
 	list-style: none;
 }
+.ans{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
 blockquote, q {
 	quotes: none;
 }
