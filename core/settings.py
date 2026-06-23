@@ -44,7 +44,6 @@ INSTALLED_APPS = [
     'coureses',
     'ckeditor',
     'quizes', 
-    'users',
     'results'
 ]
 
