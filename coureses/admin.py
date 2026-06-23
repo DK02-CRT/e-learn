@@ -90,4 +90,3 @@ class AnswerAdmin(admin.ModelAdmin):
 
 admin.site.register(Course)
 admin.site.register(Module)
-# Register your models here.

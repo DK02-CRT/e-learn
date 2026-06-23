@@ -41,6 +41,9 @@ class Topic(models.Model):
     order = models.PositiveBigIntegerField(default=0)
     content = RichTextField()
 
+    class Meta:
+        ordering = ['order']
+
     def __str__(self):
         return self.title
     
