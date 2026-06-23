@@ -43,6 +43,9 @@ class Topic(models.Model):
     order = models.PositiveBigIntegerField(default=0)
     content = RichTextField()
 
+    class Meta:
+        ordering = ['order']
+
     def __str__(self):
         return self.title
     
@@ -92,6 +95,10 @@ class Question(models.Model):
         related_name='questions'
     )
     content = RichTextField()
+    order = models.PositiveBigIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.title
@@ -103,7 +110,7 @@ class Answer(models.Model):
         on_delete=models.CASCADE,
         related_name='answers'
     )
-    content = models.CharField(max_length=255)
+    content = RichTextField()
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):

@@ -10,7 +10,7 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'course_detail' course.slug %}">
+        <a href="{% url 'module_detail' course.slug module.pk %}">
             Wróć do modułów
         </a>
       <h2><p>Portal e-learningowy</p></h2>
@@ -21,38 +21,41 @@
       </div>
     </header>
     <main>
-        <h1>{{ module.title }}</h1>
-        {{ module.content|safe }}
-      {%for topic in topics%}
+      <h1>{{ topics.title }}</h1>
+      <div class="topic">
+        {{ topics.content|safe }}
+      </div>
+      {%for quest in quests%}
         <div class="topic">
-            <i><p>Temat: {{topic.title}}</p></i>
-            <p>{{topic.content|safe}}</p>
-            <div style="border: 4px solid red;">
-                {% for quest in topic.quests.all %}
-                <form action="" method="post">
-                  {% for question in quest.questions.all %}
-                    {{question.content|safe}}
-                    {% for answer in question.answers.all %}
-                      <input type="checkbox" name="" id="" value="{{answer.is_correct}}">{{answer.content}}
-                      {% empty %}
-                      <p>BŁĄD - brakuje odpowiedzi</p>
-                    {% endfor %}
-                  {% empty %}
-                  <p>BŁĄD - brakuje pytań</p>
-                  {% endfor %}
-                  <input type="submit" value="Sprawdź">
-                </form>
-                {% empty %}
-                <p>BŁĄD - brakuje zadań</p>
-                {% endfor %}
+          <form action="" method="post">
+            {% csrf_token %}
+          {% for question in quest.questions.all %}
+            <p>{{question.content|safe}}</p>
+            <div class="ans">
+            {% for answer in question.answers.all %}
+              <p><input type="checkbox" name="answers" id="" value="{{answer.id}}">{{answer.content|safe}}</p>
+            {% empty %}
+              <p>BŁĄD - brakuje odpowiedzi</p>
+            {% endfor %}
             </div>
+          {% empty %}
+            <p>BŁĄD - brakuje pytań</p>
+          {% endfor %}
+            <input type="submit" value="Sprawdź">
+          </form>
         </div>
       {% empty %}
-        <p>Brak tematów.</p>
+        <p>Brak zestawu pytań.</p>
       {% endfor %}
+      {% if score is not None %}
+      <div class="result">
+          <h2>Twój wynik</h2>
+          <p>{{ score }} / {{ max_score }}</p>
+      </div>
+      {% endif %}
     </main>
     <footer>
-        <p>rtrt</p>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
   </body>
 </html>

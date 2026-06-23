@@ -10,8 +10,8 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'home' %}">
-            Wróć do kursów 
+        <a href="{% url 'courses' %}">
+            Wróć do kursów
         </a>
       <h2><p>Portal e-learningowy</p></h2>
       <div>
@@ -21,11 +21,14 @@
       </div>
     </header>
     <main>
-        <h1>{{ course.title }}</h1>
-      {%for module in modules%}
-        <div class="topic">
-            <a href="{% url 'topic_detail' module.pk %}">
-            <h3>{{ module.title }}</h3>
+        <h1>{{ module.title }}</h1>
+        {{ module.content|safe }}
+      {%for topic in topics%}
+        <div class="module">
+          <a href="{% url 'topic_detail' slug=course.slug module_pk=module.pk topic_pk=topic.pk%}">
+            <i>
+              <p>Temat: {{topic.title}}</p>
+            </i>
           </a>
         </div>
       {% empty %}
@@ -33,7 +36,7 @@
       {% endfor %}
     </main>
     <footer>
-        <p>rtrt</p>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
   </body>
 </html>

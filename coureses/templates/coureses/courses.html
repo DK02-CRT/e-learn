@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <!-- <title>E-learn</title> -->
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+  </head>
+  <body>
+    <header>
+      <div class="login">
+        <a href="{% url 'home' %}">Home</a>
+      </div>
+      <h2><p class="header">Portal e-learningowy</p></h2>
+      <div class="login">
+        <a href="{% url 'signin' %}">
+          Logowanie
+        </a>
+      </div>
+    </header>
+    <main>
+      <h1>Dostępne kursy</h1>
+      <div class="courses">
+      {%for course in courses%}
+        <div class="course">
+          <img src="{{course.image.url}}" alt="{{course.title}}">
+          <h3>{{course.title}}</h3>
+          <p>{{course.desc}}</p>
+          Dostęne moduły:
+          <ul>
+          {% for module in course.modules.all %}
+            <li>
+              <a href="{% url 'module_detail' course.slug module.pk %}">{{module.title}}</a>
+            </li>
+          {% empty %}
+            <p>Przepraszamy, brak dostępnych modułów.</p>
+          {% endfor %}
+          </ul>
+          <h3>{{ module.title }}</h3>
+        </div>
+      {% empty %}
+        <p>Przepraszamy, brak dostępnych kursów.</p>
+      {% endfor %}
+      </div>
+    </main>
+    <footer>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
+    </footer>
+  </body>
+</html>
