@@ -37,7 +37,7 @@ class Topic(models.Model):
     module = models.ForeignKey(
         Module,
         on_delete=models.CASCADE,
-        related_name='modules'
+        related_name='topics'
     )
     title = models.CharField(max_length=100)
     order = models.PositiveBigIntegerField(default=0)
@@ -101,12 +101,12 @@ class Question(models.Model):
         ordering = ['order']
 
     def __str__(self):
-        return self.title
+        return self.content
 
 # model odpowiedzi
 class Answer(models.Model):
     question = models.ForeignKey(
-        Quiz,
+        Question,
         on_delete=models.CASCADE,
         related_name='answers'
     )
