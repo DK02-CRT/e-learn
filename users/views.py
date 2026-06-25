@@ -29,11 +29,20 @@ def signin (request):
 
 @login_required
 def acccount(request):
-    return render(
-        request,
-        "users/account.html",{
-            "user": request.user
-        })
+
+    if request.method == "POST":
+        user = request.user
+
+        user.first_name = request.POST.get("first_name")
+        user.last_name = request.POST.get("last_name")
+        user.username = request.POST.get("username")
+        user.email = request.POST.get("email")
+
+        user.save()
+
+        return redirect("account")
+    
+    return render(request, "users/account.html")
 
 
 
