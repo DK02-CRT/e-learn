@@ -35,6 +35,8 @@ def acccount(request):
             "user": request.user
         })
 
+
+
 def signout(request):
     logout(request)
     return redirect("home")
