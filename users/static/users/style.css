@@ -70,6 +70,10 @@ footer{
 .footm{
     grid-area: footm;
 }
-.formu{
-    display: none;
+.logout a{
+    width: 10vh;
+    height: 10vh;
+}
+.logout a img{
+    width: 10vh;
 }

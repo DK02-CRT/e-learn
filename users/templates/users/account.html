@@ -15,7 +15,14 @@
       </div>
       <h2><p>Portal e-learningowy</p></h2>
       <div class="logout">
-      <a href="{% url 'signout' %}">Wyloguj się</a></div>
+        <a href="{% url 'signout' %}" title="Wyloguj się">
+          {% if user.avatar %}
+            <img src="{{user.avatar.url}}" alt="{{user.username}}">
+          {% else %}
+          Wyloguj się
+          {% endif %}
+        </a>
+    </div>
     </header>
     <main>
       <div class="account">
@@ -35,12 +42,13 @@
         </div>
         <div class="footm">
           <button type="button" onclick="forma()">Edytuj dane</button>
-          <form id="formularz" class="formu" method="post">
+          <form id="formularz" method="post" enctype="multipart/form-data" style="display: none;">
         {% csrf_token %}
             <p>Imie: <input type="text" name="first_name"></p>
             <p>Nazwisko: <input type="text" name="last_name"></p>
             <p>Login: <input type="text" name="username"></p>
             <p>E-mail: <input type="text" name="email"></p>
+            <p>Avatar: <input type="file" name="avatar"></p>
             <input type="submit" value="Zmień dane">
         {% if error %}
         <p>{{ error }}</p>
