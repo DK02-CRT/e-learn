@@ -1,5 +1,5 @@
 from django.db import models
-from ckeditor.fields import RichTextField
+from django_ckeditor_5.fields import CKEditor5Field
 from django.contrib.auth import get_user_model
 from django.conf import settings
 
@@ -27,7 +27,7 @@ class Module(models.Model):
     )
     title = models.CharField(max_length=100)
     order = models.PositiveBigIntegerField(default=0)
-    content = RichTextField()
+    content = CKEditor5Field()
 
     def __str__(self):
         return self.title
@@ -41,7 +41,7 @@ class Topic(models.Model):
     )
     title = models.CharField(max_length=100)
     order = models.PositiveBigIntegerField(default=0)
-    content = RichTextField()
+    content = CKEditor5Field()
 
     class Meta:
         ordering = ['order']
@@ -58,7 +58,7 @@ class Lesson(models.Model):
     )
     title = models.CharField(max_length=100)
     order = models.PositiveBigIntegerField(default=0)
-    content = RichTextField()
+    content = CKEditor5Field()
 
     def __str__(self):
         return self.title
@@ -94,7 +94,7 @@ class Question(models.Model):
         on_delete=models.CASCADE,
         related_name='questions'
     )
-    content = RichTextField()
+    content = CKEditor5Field()
     order = models.PositiveBigIntegerField(default=0)
 
     class Meta:
@@ -110,7 +110,7 @@ class Answer(models.Model):
         on_delete=models.CASCADE,
         related_name='answers'
     )
-    content = RichTextField()
+    content = CKEditor5Field()
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):

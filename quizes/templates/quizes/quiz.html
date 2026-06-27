@@ -6,12 +6,12 @@
     <!-- <title>E-learn</title> -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+    <link rel="stylesheet" href="{% static 'quizes/style.css' %}">
   </head>
   <body>
     <header>
-        <a href="{% url 'home' %}">
-            Wróć do tematów
+        <a href="{% url 'home' %}"> <!--zmienić home na quizes-->
+            Wróć do quizów
         </a>
       <h2><p>Portal e-learningowy</p></h2>
       <div>
@@ -21,28 +21,34 @@
       </div>
     </header>
     <main>
-        <h1>Quizy</h1>
-        <p>{{ quiz.title }}</p>
-        {%for task in tasks%}
-        <div class="task">
-            <p>{{task.context}}</p>
-
+      <h1>{{ quiz.title }}</h1>
+      {% if score is not None %}
+      <div class="result">
+        <h2>Twój wynik</h2>
+        <p>{{ score }} / {{ max_score }}</p>
+      </div>
+      {% endif %}
+      <div class="task">
+        <form action="" method="post">
+          {% csrf_token %}
+          {%for task in tasks%}
+          <p>{{task.context|safe}}</p>
+          <div class="answer">
             {%for answer in task.quizAnswers.all %}
-            <div class="answer">
-                <input type="checkbox" name="" id="">
-                {{answer.option}}
-
+            <input type="checkbox" name="answers" value="{{answer.id}}">{{answer.option|safe}}
             {% empty %}
-                <p>BŁĄD - brak odp</p>
-                </div>
+            <p>BŁĄD - brak odp</p>
             {% endfor %}
-        {% empty %}
-            <p>BŁĄD - brak zadań</p>
-            </div>
-        {% endfor %}
+          </div>
+          {% empty %}
+          <p>BŁĄD - brak zadań</p>
+          {% endfor %}
+          <input type="submit" value="Wyślij rozwiązanie">
+        </form>
+      </div>
     </main>
     <footer>
-        <p>rtrt</p>
+      <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
   </body>
 </html>
