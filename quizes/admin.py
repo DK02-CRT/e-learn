@@ -14,3 +14,12 @@ class QuizTaskAdmin(admin.ModelAdmin):
 @admin.register(Quiz_Answer)
 class QuizAnswerAdmin(admin.ModelAdmin):
     search_fields = ["option"]
+    list_display = (
+        "id",
+        "option",
+        "is_correct"
+    )
+
+    list_filter = (
+        "is_correct",
+    )
