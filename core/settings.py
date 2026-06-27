@@ -42,9 +42,8 @@ INSTALLED_APPS = [
     'users',
     'e_learn',
     'coureses',
-    'ckeditor',
+    'django_ckeditor_5',
     'quizes', 
-    'users',
     'results'
 ]
 
@@ -143,3 +142,5 @@ MEDIA_ROOT = BASE_DIR / 'media'
 load_dotenv()
 
 AUTH_USER_MODEL = "users.User"
+
+CKEDITOR_UPLOAD_PATH = "ckeditor_5/"
