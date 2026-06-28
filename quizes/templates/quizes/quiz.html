@@ -10,13 +10,15 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'home' %}"> <!--zmienić home na quizes-->
-            Wróć do quizów
+      <div class="jump">
+        <a href="{% url 'quizes' %}" title="Wróć do quizów">
+          <img src="{% static 'quizes/back.png' %}" alt="Strona główna">
         </a>
+        </div>
       <h2><p>Portal e-learningowy</p></h2>
-      <div>
-        <a href="">
-          Logowanie
+      <div class="login">
+        <a href="{% url 'account' %}" title="Twoje konto">
+          <img src="{{user.avatar.url}}" alt="{{user.name}}">
         </a>
       </div>
     </header>
@@ -24,8 +26,10 @@
       <h1>{{ quiz.title }}</h1>
       {% if score is not None %}
       <div class="result">
-        <h2>Twój wynik</h2>
-        <p>{{ score }} / {{ max_score }}</p>
+        <div><h2>Wynik quizu</h2></div>
+        <div><p>{{ score }} / {{ max_score }}</p></div>
+          <div><p>Czas trwania: {{time}} s</p></div>
+          <div><p>{{result}}</p></div>
       </div>
       {% endif %}
       <div class="task">
