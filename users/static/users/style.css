@@ -22,9 +22,19 @@ header{
     grid-area: head;
     justify-content: space-between;
 }
-h2, p.header{
+.jump a img{
+    width: 10vh;
+    height: 10vh;
+}
+h2{
     margin: 0;
     width: calc(100vw-10vh);
+}
+main{
+    grid-area: middl;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
 }
 .account{
@@ -50,7 +60,7 @@ h1{
     align-content: center;
     width: 100%;
 }
-.imag, img{
+.imag img{
     width: 400px;
     border-radius: 50%;
 }
@@ -76,4 +86,6 @@ footer{
 }
 .logout a img{
     width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
 }

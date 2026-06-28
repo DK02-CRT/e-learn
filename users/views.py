@@ -64,7 +64,8 @@ def signup(request):
             last_name = last_name,
             username=username,
             email=email,
-            password=password
+            password=password,
+            avatar="users/default_avatar.jpg"
         )
 
         user = authenticate(
