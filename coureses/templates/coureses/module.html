@@ -10,13 +10,15 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'courses' %}">
-            Wróć do kursów
+      <div class="jump">
+        <a href="{% url 'courses' %}" title="Wróć na stronę główną">
+          <img src="{% static 'coureses/back.png' %}" alt="Strona główna">
         </a>
+      </div>
       <h2><p>Portal e-learningowy</p></h2>
-      <div>
-        <a href="">
-          Logowanie
+      <div class="login">
+        <a href="{% url 'account' %}" title="Twoje konto">
+          <img src="{{user.avatar.url}}" alt="{{user.name}}">
         </a>
       </div>
     </header>

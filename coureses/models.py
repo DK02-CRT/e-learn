@@ -1,7 +1,5 @@
 from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
-from django.contrib.auth import get_user_model
-from django.conf import settings
 
 # model przedmiotu
 class Course(models.Model):
@@ -37,7 +35,7 @@ class Topic(models.Model):
     module = models.ForeignKey(
         Module,
         on_delete=models.CASCADE,
-        related_name='modules'
+        related_name='topics'
     )
     title = models.CharField(max_length=100)
     order = models.PositiveBigIntegerField(default=0)
@@ -80,7 +78,7 @@ class Question(models.Model):
 # model odpowiedzi
 class Answer(models.Model):
     question = models.ForeignKey(
-        Quiz,
+        Question,
         on_delete=models.CASCADE,
         related_name='answers'
     )
@@ -89,43 +87,3 @@ class Answer(models.Model):
 
     def __str__(self):
         return self.content
-    
-# model procesu usera
-class UserProgress(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='progress'
-    )
-    lesson = models.ForeignKey(
-        Lesson,
-        on_delete=models.CASCADE,
-        related_name='progress'
-    )
-
-    completed = models.BooleanField(default=False)
-    completed_at = models.DateTimeField(null=True, blank=True)
-
-    class Meta:
-        unique_together = ("user", "lesson")
-
-    def __str__(self):
-        return f"{self.user} - {self.lesson} - {self.completed}"
-
-
-class Result(models.Model):
-    user = models.ForeignKey(
-        settings.AUTH_USER_MODEL,
-        on_delete=models.CASCADE,
-        related_name='quiz_results'
-    )
-    quiz = models.ForeignKey(
-        Quiz,
-        on_delete=models.CASCADE,
-        related_name='results'
-    )
-
-    score = models.IntegerField()
-    max_score = models.IntegerField()
-
-    created_at = models.DateTimeField(auto_now_add=True)

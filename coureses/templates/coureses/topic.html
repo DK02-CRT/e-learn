@@ -10,13 +10,15 @@
   </head>
   <body>
     <header>
-        <a href="{% url 'module_detail' course.slug module.pk %}">
-            Wróć do modułów
+      <div class="jump">
+        <a href="{% url 'module_detail' course.slug module.pk %}" title="Wróć na stronę główną">
+          <img src="{% static 'coureses/back.png' %}" alt="Strona główna">
         </a>
+      </div>
       <h2><p>Portal e-learningowy</p></h2>
-      <div>
-        <a href="">
-          Logowanie
+      <div class="login">
+        <a href="{% url 'account' %}" title="Twoje konto">
+          <img src="{{user.avatar.url}}" alt="{{user.name}}">
         </a>
       </div>
     </header>
@@ -25,15 +27,25 @@
       <div class="topic">
         {{ topics.content|safe }}
       </div>
+      <button type="button" onclick="zadania()">Wyświetl zadania</button>
+      {% if score is not None %}
+      <div class="result">
+          <div><h2>Twój wynik</h2></div>
+          <div><p>{{ score }} / {{ max_score }}</p></div>
+          <div><p>Czas trwania: {{time}} s</p></div>
+          <div><p>{{result}}</p></div>
+      </div>
+      {% endif %}
       {%for quest in quests%}
-        <div class="topic">
+        <div class="task">
           <form action="" method="post">
             {% csrf_token %}
+            <input type="hidden" name="time" id="time">
           {% for question in quest.questions.all %}
             <p>{{question.content|safe}}</p>
             <div class="ans">
             {% for answer in question.answers.all %}
-              <p><input type="checkbox" name="answers" id="" value="{{answer.id}}">{{answer.content|safe}}</p>
+              <p><input type="checkbox" name="answers" value="{{answer.id}}">{{answer.content|safe}}</p>
             {% empty %}
               <p>BŁĄD - brakuje odpowiedzi</p>
             {% endfor %}
@@ -47,15 +59,10 @@
       {% empty %}
         <p>Brak zestawu pytań.</p>
       {% endfor %}
-      {% if score is not None %}
-      <div class="result">
-          <h2>Twój wynik</h2>
-          <p>{{ score }} / {{ max_score }}</p>
-      </div>
-      {% endif %}
     </main>
     <footer>
         <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
+    <script src="{% static 'coureses/script.js' %}"></script>
   </body>
 </html>
