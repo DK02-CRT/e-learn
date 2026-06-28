@@ -1,5 +1,6 @@
 from django.db import models
 from coureses.models import Course
+from django_ckeditor_5.fields import CKEditor5Field
 
 class Quiz(models.Model):
     course = models.OneToOneField(
@@ -18,7 +19,7 @@ class Quiz_Task(models.Model):
         on_delete=models.CASCADE,
         related_name='quizTasks'
     )
-    context = models.CharField(max_length=200)
+    context = CKEditor5Field()
 
     def __str__(self):
         return self.context
@@ -29,7 +30,7 @@ class Quiz_Answer(models.Model):
         on_delete=models.CASCADE,
         related_name='quizAnswers'
     )
-    option = models.CharField(max_length=200)
+    option = CKEditor5Field()
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):

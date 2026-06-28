@@ -6,24 +6,70 @@
     <title>E-learn</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'e_learn/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
   </head>
   <body>
     <header>
+      <div class="login">
+        <a href="{% url 'home' %}">Home</a>
+      </div>
       <h2><p>Portal e-learningowy</p></h2>
-      <a href="{% url 'signout' %}">Wyloguj</a>
+      <div class="logout">
+        <a href="{% url 'signout' %}" title="Wyloguj się">
+          {% if user.avatar %}
+            <img src="{{user.avatar.url}}" alt="{{user.username}}">
+          {% else %}
+          Wyloguj się
+          {% endif %}
+        </a>
+    </div>
     </header>
     <main>
+      <div class="account">
         <h1>Moje konto</h1>
-        <p>login:{{user.username}}</p>
-        <p>email:{{user.email}}</p>
-        <p>created:{{user.created_at}}</p>rrr
-        <!-- {% if user.avatar %} -->
+        <div class="imag">
+          {% if user.avatar %}
             <img src="{{user.avatar.url}}" alt="user avatar">
-        <!-- {% endif %} -->
+          {% endif %}
+        </div>
+        <div class="info">
+          <p>Imie: {{user.first_name}}</p>
+          <p>Nazwisko: {{user.last_name}}</p>
+          <p>Login: {{user.username}}</p>
+          <p>E-mail: {{user.email}}</p>
+          <p>Utworzone: {{user.created_at}}</p>
+          <p>Zmodyfikowane: {{user.modified_at}}</p>
+        </div>
+        <div class="footm">
+          <button type="button" onclick="forma()">Edytuj dane</button>
+          <form id="formularz" method="post" enctype="multipart/form-data" style="display: none;">
+        {% csrf_token %}
+            <p>Imie: <input type="text" name="first_name"></p>
+            <p>Nazwisko: <input type="text" name="last_name"></p>
+            <p>Login: <input type="text" name="username"></p>
+            <p>E-mail: <input type="text" name="email"></p>
+            <p>Avatar: <input type="file" name="avatar"></p>
+            <input type="submit" value="Zmień dane">
+        {% if error %}
+        <p>{{ error }}</p>
+        {% endif %}
+          </form>
+        </div>
+      </div>
     </main>
     <footer>
-        <p>rtrt</p>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
+    <script>
+      function forma(){
+        const formul = document.querySelector("#formularz");
+        if(formul.style.display == "none"){
+          formul.style.display = "block";
+        }
+        else{
+          formul.style.display = "none";
+        }
+      }
+    </script>
   </body>
 </html>
