@@ -6,12 +6,14 @@
     <title>E-learn</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'e_learn/style.css' %}">
+    <link rel="stylesheet" href="{% static 'users/style.css' %}">
   </head>
   <body>
     <header>
-      <div class="login">
-        <a href="{% url 'home' %}">Home</a>
+      <div class="jump">
+        <a href="{% url 'home' %}">
+          <img src="{% static 'coureses/home.png' %}" alt="Strona główna">
+        </a>
       </div>
       <h2><p>Portal e-learningowy</p></h2>
       <div class="login"></div>
