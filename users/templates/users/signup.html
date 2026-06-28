@@ -18,18 +18,26 @@
     </header>
     <main>
       <div class="log_con">
-        <h1>Zaloguj się</h1>
+        <h1>Utwórz swoje konto</h1>
         <form action="" method="post">
         {% csrf_token %}
-          <label for="login">Nazwa użytkownika:</label>
+          <label for="first_name">Imie:</label>
+          <input type="text" name="first_name">
+          <br>
+          <label for="last_name">Nazwisko:</label>
+          <input type="text" name="last_name">
+          <br>
+          <label for="email">E-mail:</label>
+          <input type="email" name="email">
+          <br>
+          <label for="username">Nazwa użytkownika:</label>
           <input type="text" name="username">
           <br>
           <label for="password">Hasło:</label>
           <input type="password" name="password">
           <br>
-          <input type="submit" value="Zaloguj się">
+          <input type="submit" value="Utwórz konto">
         </form>
-        <a href="{% url 'signup' %}">Nie masz konta, utwórz je tutaj.</a>
         {% if error %}
         <p>{{ error }}</p>
         {% endif %}</div>

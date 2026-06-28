@@ -73,7 +73,7 @@ class Question(models.Model):
         ordering = ['order']
 
     def __str__(self):
-        return self.title
+        return self.content
 
 # model odpowiedzi
 class Answer(models.Model):

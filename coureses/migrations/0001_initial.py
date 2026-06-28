@@ -31,6 +31,26 @@ class Migration(migrations.Migration):
             ],
         ),
         migrations.CreateModel(
+            name='Topic',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=100)),
+                ('order', models.PositiveBigIntegerField(default=0)),
+                ('content', django_ckeditor_5.fields.CKEditor5Field()),
+            ],
+            options={
+                'ordering': ['order'],
+            },
+        ),
+        migrations.CreateModel(
+            name='UserProgress',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('completed', models.BooleanField(default=False)),
+                ('completed_at', models.DateTimeField(blank=True, null=True)),
+            ],
+        ),
+        migrations.CreateModel(
             name='Module',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
@@ -38,6 +58,16 @@ class Migration(migrations.Migration):
                 ('order', models.PositiveBigIntegerField(default=0)),
                 ('content', django_ckeditor_5.fields.CKEditor5Field()),
                 ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='modules', to='coureses.course')),
+            ],
+        ),
+        migrations.CreateModel(
+            name='Lesson',
+            fields=[
+                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('title', models.CharField(max_length=100)),
+                ('order', models.PositiveBigIntegerField(default=0)),
+                ('content', django_ckeditor_5.fields.CKEditor5Field()),
+                ('module', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='coureses.module')),
             ],
         ),
         migrations.CreateModel(
@@ -58,11 +88,11 @@ class Migration(migrations.Migration):
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('content', django_ckeditor_5.fields.CKEditor5Field()),
                 ('is_correct', models.BooleanField(default=False)),
-                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='coureses.question')),
+                ('question', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='answers', to='coureses.quiz')),
             ],
         ),
         migrations.CreateModel(
-            name='Topic',
+            name='Result',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('title', models.CharField(max_length=100)),
@@ -73,10 +103,5 @@ class Migration(migrations.Migration):
             options={
                 'ordering': ['order'],
             },
-        ),
-        migrations.AddField(
-            model_name='quest',
-            name='quest',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='quests', to='coureses.topic'),
         ),
     ]
