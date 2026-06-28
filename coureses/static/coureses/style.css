@@ -18,12 +18,21 @@ header{
     grid-area: head;
     justify-content: space-between;
 }
-h2, p.header{
+h2{
     margin: 0;
     width: calc(100vw-10vh);
 }
-.login{
+.jump a img{
     width: 10vh;
+    height: 10vh;
+}
+.login{
+    background: green;
+}
+.login a img{
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
 }
 main{
     grid-area: middl;
@@ -33,51 +42,51 @@ main{
     align-items: center;
 }
 .courses{
-    /* border: 3px solid black; */
     margin: 5px;
-    /* width: 500px; */
     padding: 5px;
     display: grid;
-    /* flex-wrap: wrap; */
     grid-template-columns: 1fr 1fr;
     gap: 1rem;
 }
 .course{
     border: 3px solid black;
     margin: 5px;
-    /* width: 50%; */
     box-sizing: border-box;
     padding: 5px;
+}
+.course img{
+    width: 150px;
 }
 .topic{
     width: 90%;
     margin-left: 20px;
     margin-right: 20px;
 }
+.task{
+    width: 90%;
+    margin-left: 20px;
+    margin-right: 20px;
+    display: none;
+}
 footer{
     background: green;
     grid-area: foot;
 }
-ol, ul {
-	list-style: none;
+ol {
+	list-style:decimal
 }
 .ans{
     display: flex;
     align-items: center;
     gap: 20px;
 }
-blockquote, q {
-	quotes: none;
+.result{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
 }
-img{
-    height: 150px;
-}
-blockquote:before, blockquote:after,
-q:before, q:after {
-	content: '';
-	content: none;
-}
-table {
-	border-collapse: collapse;
-	border-spacing: 0;
+input[type=submit], button{
+    margin: 20px;
 }

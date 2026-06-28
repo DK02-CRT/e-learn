@@ -8,6 +8,10 @@ class Mode(models.Model):
         null=True
     )
     url = models.CharField(max_length=50)
+    order = models.PositiveBigIntegerField(default=0)
+
+    class Meta:
+        ordering = ['order']
 
     def __str__(self):
         return self.name
