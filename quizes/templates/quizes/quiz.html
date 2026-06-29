@@ -39,6 +39,7 @@
       <div class="task">
         <form action="" method="post">
           <input type="hidden" id="time" name="time" value="1">
+          <input type="hidden" id="startTime" name="startTime" value="1">
           {% csrf_token %}
           {%for task in tasks%}
           <p>{{task.context|safe}}</p>

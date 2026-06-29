@@ -20,6 +20,7 @@ class ResultsQuiz(models.Model):
     started_at = models.DateTimeField()
 
     duration = models.DurationField()
+    passed = models.BooleanField()
 
     class Meta:
         ordering = [

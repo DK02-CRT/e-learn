@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Quiz, Quiz_Task, Quiz_Answer
 from django.contrib.auth.decorators import login_required
+from datetime import timedelta
+from results.models import ResultsQuiz
+from django.utils import timezone
 
 @login_required
 def quizes (request):
@@ -14,6 +17,7 @@ def quizes (request):
 def quiz_detail (request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
     tasks = quiz.quizTasks.all()
+    # request.session["quiz_start"] = timezone.now().isoformat()
     
     score = None
     result = ""
@@ -21,6 +25,7 @@ def quiz_detail (request, pk):
     time = 0
 
     if request.method == "POST":
+        startTime = timezone.now()
         print(request.POST)
         print(request.POST.getlist("answers"))
 
@@ -51,6 +56,15 @@ def quiz_detail (request, pk):
 
         print(correct_answers.count())
         print(list(correct_answers.values("id", "option")))
+
+        ResultsQuiz.objects.create(
+            users=request.user,
+            quiz=quiz,
+            score=score,
+            max_score=max_score,
+            started_at=startTime,
+            duration=timedelta(seconds=int(time))
+)
 
     return render(request, "quizes/quiz.html", {
         "max_score": max_score,
