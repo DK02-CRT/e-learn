@@ -12,7 +12,7 @@
     <header>
       <div class="jump">
         <a href="{% url 'quizes' %}" title="Wróć do quizów">
-          <img src="{% static 'quizes/back.png' %}" alt="Strona główna">
+          <img src="{% static 'quizes/back.png' %}" alt="Quizy">
         </a>
         </div>
       <h2><p>Portal e-learningowy</p></h2>
@@ -34,6 +34,7 @@
       {% endif %}
       <div class="task">
         <form action="" method="post">
+          <input type="hidden" id="time" name="time" value="1">
           {% csrf_token %}
           {%for task in tasks%}
           <p>{{task.context|safe}}</p>
@@ -54,5 +55,6 @@
     <footer>
       <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
+    <script src="{% static 'quizes/script.js' %}"></script>
   </body>
 </html>

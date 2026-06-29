@@ -144,3 +144,5 @@ load_dotenv()
 AUTH_USER_MODEL = "users.User"
 
 CKEDITOR_UPLOAD_PATH = "ckeditor_5/"
+
+LOGIN_URL = "/users/signin"
