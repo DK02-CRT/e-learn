@@ -4,15 +4,8 @@ from django.contrib.auth import get_user_model
 from quizes.models import Quiz, Quiz_Task, Quiz_Answer
 from coureses.models import Course
 from users.models import User
-from django.core.files.uploadedfile import SimpleUploadedFile
 
 User = get_user_model()
-
-avatar = SimpleUploadedFile(
-    "avatar.jpg",
-    b"file_content",
-    content_type="image/jpeg"
-)
 
 class QuizTest(TestCase):
 
@@ -50,7 +43,6 @@ class QuizTest(TestCase):
             username="adam",
             password="haslo123",
             email="adam@test.pl",
-            avatar=avatar,
         )
 
         self.client = Client()
@@ -67,40 +59,6 @@ class QuizTest(TestCase):
     def test_create_task(self):
         self.assertEqual(self.task.task, self.quiz)
         self.assertEqual(self.task.context, "Czym jest siarczan sodu?")
-
-    # def test_create_topic(self):
-    #     self.assertEqual(self.topic.module, self.module)
-    #     self.assertEqual(self.topic.title, "Węglowodory")
-    #     self.assertEqual(self.course.desc, "Chemia - desc")
-    #     self.assertEqual(self.course.slug, "chemia")
-
-    # def test_module_page_loads(self):
-    #     url = reverse(
-    #         "module_detail",
-    #         kwargs={
-    #             "slug": self.course.slug,
-    #             "pk": self.module.pk
-    #         }
-    #     )
-
-    #     response = self.client.get(url)
-
-    #     self.assertEqual(response.status_code, 200)
-
-    # def test_topic_page_loads(self):
-    #     url = reverse(
-    #         "topic_detail",
-    #         kwargs={
-    #             "slug": self.course.slug,
-    #             "module_pk": self.module.pk,
-    #             "topic_pk": self.topic.pk
-    #         }
-    #     )
-
-    #     response = self.client.get(url)
-
-    #     self.assertEqual(response.status_code, 200)
-    #     self.assertContains(response, "Alkany")
 
     def test_quiz_scoring_correct_answer(self):
         url = reverse(
