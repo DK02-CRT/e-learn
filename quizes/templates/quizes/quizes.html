@@ -6,30 +6,35 @@
     <!-- <title>E-learn</title> -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+    <link rel="stylesheet" href="{% static 'quizes/style.css' %}">
   </head>
   <body>
     <header>
-        <a href="{% url 'home' %}">
-            Home
+      <div class="jump">
+        <a href="{% url 'home' %}" title="Wróć na stronę główną">
+          <img src="{% static 'quizes/home.png' %}" alt="Strona główna">
         </a>
+        </div>
       <h2><p>Portal e-learningowy</p></h2>
-      <div>
-        <a href="">
-          Logowanie
+      <div class="login">
+        <a href="{% url 'account' %}" title="Twoje konto">
+        {% if user.avatar %}
+          <img src="{{user.avatar.url}}" alt="{{user.name}}">
+          {% else %}
+          <img src="{% static 'coureses/default_avatar.png' %}" alt="">
+          {% endif %}
         </a>
       </div>
     </header>
     <main>
         <h1>Quizy</h1>
-        <p>{{ quiz.title }}</p>
         {%for quiz in quizes%}
         <div class="task">
             <a href="{% url 'quiz_detail' quiz.pk %}">{{quiz.title}}</a>
-        {% empty %}
-            <p>BŁĄD</p>
-        {% endfor %}
             </div>
+        {% empty %}
+            <p>BŁĄD - nie znaleziono quizów</p>
+        {% endfor %}
     </main>
     <footer>
         <p>Strona wykonana przez - Dawid Kasperczyk</p>

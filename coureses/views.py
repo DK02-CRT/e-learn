@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Course, Module, Topic, Quest, Question, Answer
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def courses(request):
 
     courses = Course.objects.all()
@@ -9,6 +11,7 @@ def courses(request):
         'courses':courses
     })
 
+@login_required
 def module_detail(request, slug, pk):
     module = get_object_or_404(Module, pk=pk)
     topic = module.topics.all()
@@ -19,6 +22,7 @@ def module_detail(request, slug, pk):
         'course': module.course
     })
 
+@login_required
 def topic_detail(request, slug, module_pk, topic_pk):
     print("🔥 WIDOK DZIAŁA", flush=True)
     topics = get_object_or_404(Topic, pk=topic_pk)

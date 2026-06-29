@@ -22,8 +22,17 @@ h2, p.header{
     margin: 0;
     width: calc(100vw-10vh);
 }
-.login{
+.jump a img{
     width: 10vh;
+    height: 10vh;
+}
+.login{
+    background: green;
+}
+.login a img{
+    width: 10vh;
+    height: 10vh;
+    border-radius: 50%;
 }
 main{
     grid-area: middl;
@@ -40,10 +49,8 @@ img{
     height: 150px;
 }
 .task{
-    margin-bottom: 50px;
-    width: 90%;
-    margin-left: 20px;
-    margin-right: 20px;
+    margin-bottom: 20px;
+    margin-top: 20px;
 }
 .answer{
     display: flex;

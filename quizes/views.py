@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Quiz, Quiz_Task, Quiz_Answer
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def quizes (request):
     quizes = Quiz.objects.all()
 
@@ -8,12 +10,15 @@ def quizes (request):
         "quizes": quizes
     })
 
+@login_required
 def quiz_detail (request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
     tasks = quiz.quizTasks.all()
     
     score = None
+    result = ""
     max_score = 0
+    time = 0
 
     if request.method == "POST":
         print(request.POST)
@@ -23,8 +28,8 @@ def quiz_detail (request, pk):
         print(selected_answers)
         selected_answers = [int(i) for i in selected_answers]
         print(selected_answers)
+        time = request.POST.get("time")
 
-        # wszystkie poprawne odpowiedzi w tym topicu
         correct_answers = Quiz_Answer.objects.filter(
             answer__task=quiz,
             is_correct=True
@@ -37,7 +42,12 @@ def quiz_detail (request, pk):
             id__in=selected_answers,
             answer__task=quiz,
             is_correct=True
-        ).count
+        ).count()
+        if max_score > 0 and (score / max_score) >= 0.8:
+            result = "Zaliczono quiz pomyślnie"
+        
+        else:
+            result = "Quiz nie został zaliczony pomyślnie. Proszę spróbować jeszcze raz."
 
         print(correct_answers.count())
         print(list(correct_answers.values("id", "option")))
@@ -46,5 +56,7 @@ def quiz_detail (request, pk):
         "max_score": max_score,
         "score": score,
         "quiz": quiz,
-        "tasks": tasks
+        "tasks": tasks,
+        "result": result, 
+        "time": time
     })
