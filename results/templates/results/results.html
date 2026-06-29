@@ -28,7 +28,17 @@
           </div>
           <div class="res_quiz">
             <h3>Wyniki quizów</h3>
-            <div>{{resultsQuiz}}</div>
+            <div>
+              {% for result in resultsQuiz %}
+                <p>
+                  {{result.users.username}}
+                  - {{result.quiz.title}}
+                  - {{result.score}} / {{result.max_score}}
+                </p>
+              {% empty %}
+                Na ten moment brak wyników.
+              {% endfor %}
+            </div>
           </div>
         </div>
     </main>

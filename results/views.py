@@ -3,8 +3,8 @@ from .models import ResultsTopic, ResultsQuiz
 
 # Create your views here.
 def results(request):
-    resultsTopic = ResultsTopic
-    resultsQuiz = ResultsQuiz
+    resultsTopic = ResultsTopic.objects.all()
+    resultsQuiz = ResultsQuiz.objects.all()
 
     return render(request, "results/results.html", {
         "resultsTopic": resultsTopic,

@@ -63,7 +63,8 @@ def quiz_detail (request, pk):
             score=score,
             max_score=max_score,
             started_at=startTime,
-            duration=timedelta(seconds=int(time))
+            duration=timedelta(seconds=int(time)),
+            passed=(score / max_score >= 0.8)
 )
 
     return render(request, "quizes/quiz.html", {
