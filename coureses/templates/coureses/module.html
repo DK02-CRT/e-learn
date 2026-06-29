@@ -18,7 +18,11 @@
       <h2><p>Portal e-learningowy</p></h2>
       <div class="login">
         <a href="{% url 'account' %}" title="Twoje konto">
+        {% if user.avatar %}
           <img src="{{user.avatar.url}}" alt="{{user.name}}">
+          {% else %}
+          <img src="{% static 'coureses/default_avatar.png' %}" alt="">
+          {% endif %}
         </a>
       </div>
     </header>
