@@ -1,14 +1,12 @@
 from django.shortcuts import render
-from .models import Results
+from .models import ResultsTopic, ResultsQuiz
 
 # Create your views here.
 def results(request):
-    result = Results
-    # tasks = quiz.quizTasks.all()
-    # answers = tasks.quizAnswers.all()
+    resultsTopic = ResultsTopic
+    resultsQuiz = ResultsQuiz
 
     return render(request, "results/results.html", {
-        "results": result,
-        # "tasks": tasks,
-        # "answers": answers
+        "resultsTopic": resultsTopic,
+        "resultsQuiz": resultsQuiz
     })
