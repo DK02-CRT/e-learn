@@ -6,44 +6,89 @@
     <!-- <title>E-learn</title> -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="stylesheet" href="{% static 'coureses/style.css' %}">
+    <link rel="stylesheet" href="{% static 'results/style.css' %}">
   </head>
   <body>
     <header>
-        <a href="{% url 'home' %}">
-            Powrót na stronę główną
+      <div class="jump">
+        <a href="{% url 'home' %}" title="Wróć na stronę główną">
+          <img src="{% static 'coureses/home.png' %}" alt="Strona główna">
         </a>
+      </div>
       <h2><p>Portal e-learningowy</p></h2>
-      <div>
-        <a href="">
-          Logowanie
+      <div class="login">
+        {% if user.is_authenticated %}
+        <a href="{% url 'account' %}" title="Twoje konto">
+          <img src="{{user.avatar.url}}" alt="{{user.name}}">
         </a>
+        {% else %}
+        <a href="{% url 'signin' %}" title="Zaloguj się">
+          <img src="{% static 'e_learn/user.png' %}" alt="Zaloguj się">
+        </a>
+        {% endif %}
       </div>
     </header>
     <main>
-        <h1>Wyniki postępów</h1>
-        <div class="">
+      <h1>Wyniki postępów</h1>
           <div class="res_course">
             <h3>Wyniki kursów</h3>
+            <div>
+              <table>
+                  <thead>
+                    <td>Użytkownik</td>
+                    <td>Temat</td>
+                    <td>Punkty</td>
+                    <td>Data rozpoczęcia</td>
+                    <td>Czas rozwiązania</td>
+                  </thead>
+              {% for resultT in resultsTopic %}
+                  <tbody>
+                    <td>{{resultT.users.username}}</td>
+                  <td>{{resultT.quiz.title}}</td>
+                  <td>{{resultT.score}} / {{resulT.max_score}}</td>
+                    <td>{{resultT.started_at}}</td>
+                    <td>{{resultT.duration}}</td>
+                </tbody>
+              {% empty %}
+                  <tbody>
+                    <td>Na</td>
+                  <td>ten</td>
+                  <td>moment</td>
+                    <td>brak</td>
+                    <td>wyników</td>
+                </tbody>
+              {% endfor %}
+              </table>
+            </div>
           </div>
           <div class="res_quiz">
             <h3>Wyniki quizów</h3>
             <div>
-              {% for result in resultsQuiz %}
-                <p>
-                  {{result.users.username}}
-                  - {{result.quiz.title}}
-                  - {{result.score}} / {{result.max_score}}
-                </p>
+              <table>
+                  <thead>
+                    <td>Użytkownik</td>
+                    <td>Quiz</td>
+                    <td>Punkty</td>
+                    <td>Data rozpoczęcia</td>
+                    <td>Czas rozwiązania</td>
+                  </thead>
+              {% for resultQ in resultsQuiz %}
+                  <tbody>
+                    <td>{{resultQ.users.username}}</td>
+                  <td>{{resultQ.quiz.title}}</td>
+                  <td>{{resultQ.score}} / {{resultQ.max_score}}</td>
+                    <td>{{resultQ.started_at}}</td>
+                    <td>{{resultQ.duration}}</td>
+                </tbody>
               {% empty %}
                 Na ten moment brak wyników.
               {% endfor %}
+              </table>
             </div>
           </div>
-        </div>
     </main>
     <footer>
-        <p>rtrt</p>
+        <p>Strona wykonana przez - Dawid Kasperczyk</p>
     </footer>
   </body>
 </html>
