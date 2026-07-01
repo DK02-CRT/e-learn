@@ -19,7 +19,11 @@
       <div class="login">
         {% if user.is_authenticated %}
         <a href="{% url 'account' %}" title="Twoje konto">
+          {% if user.avatar %}
           <img src="{{user.avatar.url}}" alt="{{user.name}}">
+          {% else %}
+          <img src="{% static 'results/default_avatar.png' %}" alt="{{user.name}}">
+          {% endif %}
         </a>
         {% else %}
         <a href="{% url 'signin' %}" title="Zaloguj się">

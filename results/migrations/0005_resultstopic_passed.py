@@ -6,7 +6,7 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('results', '0004_add_duration_to_resultsquiz'),
+        ('results', '0002_initial'),
     ]
 
     operations = [

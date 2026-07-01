@@ -20,7 +20,7 @@ class Migration(migrations.Migration):
                 ('score', models.IntegerField(default=0)),
                 ('max_score', models.IntegerField(default=0)),
                 ('started_at', models.DateTimeField()),
-                ('duration', models.PositiveIntegerField()),
+                ('duration', models.DurationField()),
             ],
             options={
                 'ordering': ['-score', 'duration'],
@@ -34,7 +34,7 @@ class Migration(migrations.Migration):
                 ('max_score', models.IntegerField(default=0)),
                 ('started_at', models.DateTimeField()),
                 ('duration', models.DurationField()),
-                ('passed', models.BooleanField()),
+                ('passed', models.BooleanField(default=False)),
                 ('quiz', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='quiz_results', to='quizes.quiz')),
             ],
             options={
