@@ -38,7 +38,7 @@
           <ul>
           {% for module in course.modules.all %}
             <li>
-              <a href="{% url 'module_detail' course.slug module.pk %}">{{module.title}}</a>
+              <a href="{% url 'module_detail' module.pk %}">{{module.title}}</a>
             </li>
           {% empty %}
             <p>Przepraszamy, brak dostępnych modułów.</p>

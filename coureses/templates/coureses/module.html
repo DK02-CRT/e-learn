@@ -31,7 +31,7 @@
         {{ module.content|safe }}
       {%for topic in topics%}
         <div class="module">
-          <a href="{% url 'topic_detail' slug=course.slug module_pk=module.pk topic_pk=topic.pk%}">
+          <a href="{% url 'topic_detail' module_pk=module.pk topic_pk=topic.pk%}">
             <i>
               <p>Temat: {{topic.title}}</p>
             </i>

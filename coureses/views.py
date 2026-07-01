@@ -15,7 +15,7 @@ def courses(request):
     })
 
 @login_required
-def module_detail(request, slug, pk):
+def module_detail(request,  pk):
     module = get_object_or_404(Module, pk=pk)
     topic = module.topics.all()
 
@@ -26,7 +26,7 @@ def module_detail(request, slug, pk):
     })
 
 @login_required
-def topic_detail(request, slug, module_pk, topic_pk):
+def topic_detail(request, module_pk, topic_pk):
     print("🔥 WIDOK DZIAŁA", flush=True)
     topic = get_object_or_404(Topic, pk=topic_pk)
     quests = topic.quests.all()
