@@ -32,22 +32,27 @@
       <h1>Wyniki postępów</h1>
           <div class="res_course">
             <h3>Wyniki kursów</h3>
-            <div>
               <table>
                   <thead>
                     <td>Użytkownik</td>
                     <td>Temat</td>
                     <td>Punkty</td>
                     <td>Data rozpoczęcia</td>
-                    <td>Czas rozwiązania</td>
+                    <td>Czas rozwiązania (hh:mm:ss)</td>
+                    <td>Zaliczone?</td>
                   </thead>
               {% for resultT in resultsTopic %}
                   <tbody>
                     <td>{{resultT.users.username}}</td>
-                  <td>{{resultT.quiz.title}}</td>
-                  <td>{{resultT.score}} / {{resulT.max_score}}</td>
+                  <td>{{resultT.topic.title}}</td>
+                  <td>{{resultT.score}} / {{resultT.max_score}}</td>
                     <td>{{resultT.started_at}}</td>
                     <td>{{resultT.duration}}</td>
+                    {% if resultT.passed is True %}
+                    <td>&#9989;</td>
+                    {% else %}
+                    <td>&#10060;</td>
+                    {% endif %}
                 </tbody>
               {% empty %}
                   <tbody>
@@ -59,18 +64,17 @@
                 </tbody>
               {% endfor %}
               </table>
-            </div>
           </div>
           <div class="res_quiz">
             <h3>Wyniki quizów</h3>
-            <div>
               <table>
                   <thead>
                     <td>Użytkownik</td>
                     <td>Quiz</td>
                     <td>Punkty</td>
                     <td>Data rozpoczęcia</td>
-                    <td>Czas rozwiązania</td>
+                    <td>Czas rozwiązania (hh:mm:ss)</td>
+                    <td>Zaliczone?</td>
                   </thead>
               {% for resultQ in resultsQuiz %}
                   <tbody>
@@ -79,12 +83,187 @@
                   <td>{{resultQ.score}} / {{resultQ.max_score}}</td>
                     <td>{{resultQ.started_at}}</td>
                     <td>{{resultQ.duration}}</td>
+                    {% if resultQ.passed %}
+                    <td>&#9989;</td>
+                    {% else %}
+                    <td>&#10060;</td>
+                    {% endif %}
                 </tbody>
               {% empty %}
-                Na ten moment brak wyników.
+                  <tbody>
+                    <td>Na</td>
+                  <td>ten</td>
+                  <td>moment</td>
+                    <td>brak</td>
+                    <td>wyników</td>
+                </tbody>
               {% endfor %}
               </table>
-            </div>
+          </div>
+          <div class="stat">
+            <h1>Statystyki</h1>
+            <p>Najlepie zdane quizy względem czasu</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Quiz</td>
+                <td>Punkty</td>
+                <td>Data rozpoczęcia</td>
+                <td>Czas rozwiązania (hh:mm:ss)</td>
+              </thead>
+              {% for statDQ in topDurationQuiz %}
+              <tbody>
+                <td>{{statDQ.users.username}}</td>
+                <td>{{statDQ.quiz.title}}</td>
+                <td>{{statDQ.score}} / {{statDQ.max_score}}</td>
+                <td>{{statDQ.started_at}}</td>
+                <td>{{statDQ.duration}}</td>
+              </tbody>
+              {% empty %}
+                  <tbody>
+                    <td>Na</td>
+                  <td>ten</td>
+                  <td>moment</td>
+                    <td>brak</td>
+                    <td>wyników</td>
+                </tbody>
+              {% endfor %}
+            </table>
+            <p>Najlepie zdane zadania tematów względem czasu</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Temat</td>
+                <td>Punkty</td>
+                <td>Data rozpoczęcia</td>
+                <td>Czas rozwiązania (hh:mm:ss)</td>
+              </thead>
+              {% for statDT in topDurationTopic %}
+              <tbody>
+                <td>{{statDT.users.username}}</td>
+                <td>{{statDT.topic.title}}</td>
+                <td>{{statDT.score}} / {{statDT.max_score}}</td>
+                <td>{{statDT.started_at}}</td>
+                <td>{{statDT.duration}}</td>
+              </tbody>
+              {% empty %}
+                  <tbody>
+                    <td>Na</td>
+                  <td>ten</td>
+                  <td>moment</td>
+                    <td>brak</td>
+                    <td>wyników</td>
+                </tbody>
+              {% endfor %}
+            </table>
+            <p>Najlepsza punktacja użytkowników</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Średnia punktów</td>
+              </thead>
+              {% for BUR in bestUsersR %}
+              <tbody>
+                <td>{{BUR.users__username}}</td>
+                <td>{{BUR.avg}}</td>
+              </tbody>
+              {% empty %}
+              <tbody>
+                <td>Brak</td>
+                <td>danych</td>
+              </tbody>
+              {% endfor %}
+            </table>
+            <p>Najlepsza punktacja użytkowników</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Średnia punktów</td>
+              </thead>
+              {% for BUQ in bestUsersQ %}
+              <tbody>
+                <td>{{BUQ.users__username}}</td>
+                <td>{{BUQ.avg}}</td>
+              </tbody>
+              {% empty %}
+              <tbody>
+                <td>Brak</td>
+                <td>danych</td>
+              </tbody>
+              {% endfor %}
+            </table>
+            <p>Najlepszy czas wykonania użytkowników</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Średnia czasu (hh:mm:ss)</td>
+              </thead>
+              {% for BTR in bestTimeR %}
+              <tbody>
+                <td>{{BTR.users__username}}</td>
+                <td>{{BTR.avg_time}}</td>
+              </tbody>
+              {% empty %}
+              <tbody>
+                <td>Brak</td>
+                <td>danych</td>
+              </tbody>
+              {% endfor %}
+            </table>
+            <p>Najlepszy czas wykonania użytkowników</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Średnia czasu (hh:mm:ss)</td>
+              </thead>
+              {% for BTQ in bestTimeQ %}
+              <tbody>
+                <td>{{BTQ.users__username}}</td>
+                <td>{{BTQ.avg_time}}</td>
+              </tbody>
+              {% empty %}
+              <tbody>
+                <td>Brak</td>
+                <td>danych</td>
+              </tbody>
+              {% endfor %}
+            </table>
+            <p>Liczba najczęstszych podejść użytkowników</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Ilość podejść</td>
+              </thead>
+              {% for BAR in bestActiveR %}
+              <tbody>
+                <td>{{BAR.users__username}}</td>
+                <td>{{BAR.total}}</td>
+              </tbody>
+              {% empty %}
+              <tbody>
+                <td>Brak</td>
+                <td>danych</td>
+              </tbody>
+              {% endfor %}
+            </table>
+            <p>Liczba najczęstszych podejść użytkowników</p>
+            <table>
+              <thead>
+                <td>Użytkownik</td>
+                <td>Ilość podejść</td>
+              </thead>
+              {% for BAQ in bestActiveQ %}
+              <tbody>
+                <td>{{BAQ.users__username}}</td>
+                <td>{{BAQ.total}}</td>
+              </tbody>
+              {% empty %}
+              <tbody>
+                <td>Brak</td>
+                <td>danych</td>
+              </tbody>
+              {% endfor %}
+            </table>
           </div>
     </main>
     <footer>

@@ -1,6 +1,9 @@
 from django.shortcuts import render, get_object_or_404
 from .models import Course, Module, Topic, Quest, Question, Answer
 from django.contrib.auth.decorators import login_required
+from results.models import ResultsTopic
+from django.utils import timezone
+from datetime import timedelta
 
 @login_required
 def courses(request):
@@ -25,8 +28,8 @@ def module_detail(request, slug, pk):
 @login_required
 def topic_detail(request, slug, module_pk, topic_pk):
     print("🔥 WIDOK DZIAŁA", flush=True)
-    topics = get_object_or_404(Topic, pk=topic_pk)
-    quests = topics.quests.all()
+    topic = get_object_or_404(Topic, pk=topic_pk)
+    quests = topic.quests.all()
 
     score = None
     selected_answers = []
@@ -35,6 +38,7 @@ def topic_detail(request, slug, module_pk, topic_pk):
     time = 0
 
     if request.method == "POST":
+        startTime = timezone.now()
         print("dane")
         print("POST:", request.POST)
         print("TIME:", request.POST.get("time"))
@@ -44,7 +48,7 @@ def topic_detail(request, slug, module_pk, topic_pk):
 
         # wszystkie poprawne odpowiedzi w tym topicu
         correct_answers = Answer.objects.filter(
-            question__question__quest=topics,
+            question__question__quest=topic,
             is_correct=True
         )
 
@@ -52,21 +56,31 @@ def topic_detail(request, slug, module_pk, topic_pk):
 
         score = Answer.objects.filter(
             id__in=selected_answers,
-            question__question__quest=topics,
+            question__question__quest=topic,
             is_correct=True
         ).count()
-        if max_score > 0 and (score / max_score) > 0.75:
+        if max_score > 0 and (score / max_score) >= 0.75:
             result = "Zaliczono temat pomyślnie"
         
         else:
             result = "Temat nie został zaliczony pomyślnie. Proszę spróbować jeszcze raz."
 
+        ResultsTopic.objects.create(
+            users=request.user,
+            topic=topic,
+            score=score,
+            max_score=max_score,
+            started_at=startTime,
+            duration=timedelta(seconds=int(time)),
+            passed=(score / max_score >= 0.75)
+)
+
 
     return render(request, 'coureses/topic.html', {
-        'topics': topics,
+        'topics': topic,
         'quests': quests,
-        'module': topics.module,
-        'course': topics.module.course,
+        'module': topic.module,
+        'course': topic.module.course,
         'score': score,
         'max_score': max_score,
         "result": result, 
