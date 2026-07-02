@@ -22,6 +22,13 @@ services:
       - DB_USER=elearn_user
       - DB_PASSWORD=elearn_password
 
+    healthcheck:
+      test: ["CMD-SHELL", "wget --spider -q http://localhost:8000/health_check/ || exit 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+      start_period: 10s
+
   db:
     image: postgres:17-alpine
     platform: linux/amd64
@@ -49,6 +56,12 @@ services:
 
     ports:
       - "6379:6379"
+
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
 
 volumes:
   postgres_data:
