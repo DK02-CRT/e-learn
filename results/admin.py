@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Results
+from .models import ResultsQuiz, ResultsTopic
 
-admin.site.register(Results)
+admin.site.register(ResultsQuiz)
+admin.site.register(ResultsTopic)
 # Register your models here.
