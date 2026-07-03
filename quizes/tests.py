@@ -88,5 +88,5 @@ class QuizTest(TestCase):
             "answers": [self.wrong.id],
             "time": "15"
         })
-
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["score"], 0)

@@ -1,7 +1,9 @@
 from django.test import TestCase, Client
 from django.urls import reverse
-
+from django.contrib.auth import get_user_model
 from coureses.models import Module, Course, Topic, Quest, Question, Answer
+
+User = get_user_model()
 
 
 class CoursesTest(TestCase):
@@ -53,7 +55,18 @@ class CoursesTest(TestCase):
             is_correct=False
         )
 
+        self.user = User.objects.create_user(
+            username="adam",
+            password="haslo123",
+            email="adam@test.pl",
+        )
+
         self.client = Client()
+
+        self.client.login(
+            username="adam",
+            password="haslo123"
+        )
 
     def test_create_course(self):
         self.assertEqual(self.course.title, "Chemia")
@@ -107,7 +120,8 @@ class CoursesTest(TestCase):
         )
 
         response = self.client.post(url, {
-            "answers": [self.correct.id]
+            "answers": [self.correct.id],
+            "time": "15"
         })
 
         self.assertEqual(response.status_code, 200)
@@ -123,7 +137,9 @@ class CoursesTest(TestCase):
         )
 
         response = self.client.post(url, {
-            "answers": [self.wrong.id]
+            "answers": [self.wrong.id],
+            "time": "15"
         })
 
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(response.context["score"], 0)
