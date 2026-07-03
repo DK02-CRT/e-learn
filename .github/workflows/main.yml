@@ -24,7 +24,7 @@ jobs:
 
       - name: Run black
         run: |
-          black . --exclude=venv,__pychache__,migrations --max-line-length=120
+          black . --exclude=venv,__pychache__,migrations --line-length=120
 
       - name: Running tests
         run: python manage.py test
