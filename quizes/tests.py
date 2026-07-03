@@ -3,7 +3,6 @@ from django.urls import reverse
 from django.contrib.auth import get_user_model
 from quizes.models import Quiz, Quiz_Task, Quiz_Answer
 from coureses.models import Course
-from users.models import User
 
 User = get_user_model()
 
@@ -70,7 +69,8 @@ class QuizTest(TestCase):
         )
 
         response = self.client.post(url, {
-            "answers": [self.correct.id]
+            "answers": [self.correct.id],
+            "time": "15"
         })
 
         self.assertEqual(response.status_code, 200)
@@ -85,7 +85,8 @@ class QuizTest(TestCase):
         )
 
         response = self.client.post(url, {
-            "answers": [self.wrong.id]
+            "answers": [self.wrong.id],
+            "time": "15"
         })
 
         self.assertEqual(response.context["score"], 0)
