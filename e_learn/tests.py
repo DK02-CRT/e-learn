@@ -2,6 +2,7 @@ from django.test import TestCase
 from e_learn.models import Mode
 from django.urls import reverse
 
+
 class UserTest(TestCase):
 
     def setUp(self):
