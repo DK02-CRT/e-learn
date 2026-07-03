@@ -83,11 +83,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'elearn_db'),
-        'USER': os.getenv('DB_USER', 'elearn_user'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'elearn_password'),
-        'HOST': os.getenv('DB_HOST', 'localhost'),
-        'PORT': os.getenv('DB_PORT', '5432'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'HOST': os.getenv('DB_HOST'),
+        'PORT': os.getenv('DB_PORT'),
 
         # 'ENGINE': 'django.db.backends.sqlite3',
         # 'NAME': BASE_DIR / 'db.sqlite3',
@@ -146,3 +146,5 @@ AUTH_USER_MODEL = "users.User"
 CKEDITOR_UPLOAD_PATH = "ckeditor_5/"
 
 LOGIN_URL = "/users/signin"
+
+DATABASE_URL = "postgresql://elearn_user:v9ShbriigeAoiI0YR5cNNzVr8Q9dxAQV@dpg-d93raneq1p3s73a6d1qg-a/elearn_db_eff0"
