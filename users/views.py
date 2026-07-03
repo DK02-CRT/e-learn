@@ -78,6 +78,9 @@ def signup(request):
             password=password
         )
 
+        if user is not None:
+            login(request, user)
+
         return redirect("home")
 
     return render(request, "users/signup.html")
