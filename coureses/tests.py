@@ -75,7 +75,6 @@ class CoursesTest(TestCase):
         url = reverse(
             "module_detail",
             kwargs={
-                "slug": self.course.slug,
                 "pk": self.module.pk
             }
         )
@@ -88,7 +87,6 @@ class CoursesTest(TestCase):
         url = reverse(
             "topic_detail",
             kwargs={
-                "slug": self.course.slug,
                 "module_pk": self.module.pk,
                 "topic_pk": self.topic.pk
             }
@@ -103,7 +101,6 @@ class CoursesTest(TestCase):
         url = reverse(
             "topic_detail",
             kwargs={
-                "slug": self.course.slug,
                 "module_pk": self.module.pk,
                 "topic_pk": self.topic.pk
             }
@@ -120,7 +117,6 @@ class CoursesTest(TestCase):
         url = reverse(
             "topic_detail",
             kwargs={
-                "slug": self.course.slug,
                 "module_pk": self.module.pk,
                 "topic_pk": self.topic.pk
             }
