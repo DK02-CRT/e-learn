@@ -19,6 +19,13 @@ jobs:
           --health-interval=10s
           --health-timeout=5s
           --health-retries=5
+    
+    env:
+      DB_NAME: elearn_db
+      DB_USER: elearn_user
+      DB_PASSWORD: elearn_password
+      DB_HOST: localhost
+      DB_PORT: 5432
 
     steps:
       - uses: actions/checkout@v4
