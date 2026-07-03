@@ -4,16 +4,17 @@ from django.contrib.auth.decorators import login_required
 import datetime
 from users.models import User
 
-def signin (request):
+
+def signin(request):
 
     if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+        username=request.POST.get("username")
+        password=request.POST.get("password")
 
         user = authenticate(
             request,
-            username = username,
-            password = password
+            username=username,
+            password=password
         )
 
         if user is not None:
@@ -27,19 +28,20 @@ def signin (request):
         )
     return render(request, "users/signin.html")
 
+
 @login_required
 def acccount(request):
 
     if request.method == "POST":
         user = request.user
 
-        user.first_name = request.POST.get("first_name") or user.first_name
-        user.last_name = request.POST.get("last_name") or user.last_name
-        user.username = request.POST.get("username") or user.username
-        user.email = request.POST.get("email") or user.email
+        user.first_name=request.POST.get("first_name") or user.first_name
+        user.last_name=request.POST.get("last_name") or user.last_name
+        user.username=request.POST.get("username") or user.username
+        user.email=request.POST.get("email") or user.email
         if "avatar" in request.FILES:
-            user.avatar = request.FILES["avatar"]
-        user.modified_at = datetime.datetime.now()
+            user.avatar=request.FILES["avatar"]
+        user.modified_at=datetime.datetime.now()
 
         user.save()
 
@@ -53,15 +55,15 @@ def signout(request):
 
 def signup(request):
     if request.method == "POST":
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
-        email = request.POST.get("email")
-        password = request.POST.get("password")
+        first_name=request.POST.get("first_name")
+        last_name=request.POST.get("last_name")
+        username=request.POST.get("username")
+        email=request.POST.get("email")
+        password=request.POST.get("password")
 
         user = User.objects.create_user(
-            first_name = first_name,
-            last_name = last_name,
+            first_name=first_name,
+            last_name=last_name,
             username=username,
             email=email,
             password=password,
@@ -70,8 +72,8 @@ def signup(request):
 
         user = authenticate(
             request,
-            username = username,
-            password = password
+            username=username,
+            password=password
         )
 
         return redirect("home")

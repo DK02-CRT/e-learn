@@ -3,6 +3,7 @@ from django.conf import settings
 from quizes.models import Quiz
 from coureses.models import Topic
 
+
 class ResultsQuiz(models.Model):
     users = models.ForeignKey(
         settings.AUTH_USER_MODEL,
@@ -30,6 +31,7 @@ class ResultsQuiz(models.Model):
 
     def __str__(self):
         return f"{self.users} - {self.quiz}"
+
 
 class ResultsTopic(models.Model):
     users = models.ForeignKey(

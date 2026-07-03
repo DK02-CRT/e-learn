@@ -78,7 +78,7 @@ class AnswerAdmin(admin.ModelAdmin):
     list_filter = (
         "is_correct",
     )
-    
+
     search_fields = (
         "question__content",
     )
@@ -87,6 +87,7 @@ class AnswerAdmin(admin.ModelAdmin):
         return obj.question.content[:50]
 
     get_question.short_description = "Pytanie"
+
 
 admin.site.register(Course)
 admin.site.register(Module)

@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     'e_learn',
     'coureses',
     'django_ckeditor_5',
-    'quizes', 
+    'quizes',
     'results'
 ]
 
@@ -135,7 +135,7 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-#Media and images
+# Media and images
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 

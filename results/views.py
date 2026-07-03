@@ -2,6 +2,7 @@ from django.shortcuts import render
 from .models import ResultsTopic, ResultsQuiz
 from django.db.models import Avg, Count
 
+
 def results(request):
     resultsTopic = ResultsTopic.objects.select_related("users", "topic").order_by("started_at")
     resultsQuiz = ResultsQuiz.objects.select_related("users", "quiz").order_by("started_at")

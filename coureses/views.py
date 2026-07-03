@@ -1,9 +1,10 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Course, Module, Topic, Quest, Question, Answer
+from .models import Course, Module, Topic, Answer
 from django.contrib.auth.decorators import login_required
 from results.models import ResultsTopic
 from django.utils import timezone
 from datetime import timedelta
+
 
 @login_required
 def courses(request):
@@ -11,8 +12,9 @@ def courses(request):
     courses = Course.objects.all()
 
     return render(request, 'coureses/courses.html', {
-        'courses':courses
+        'courses': courses
     })
+
 
 @login_required
 def module_detail(request,  pk):
@@ -24,6 +26,7 @@ def module_detail(request,  pk):
         'module': module,
         'course': module.course
     })
+
 
 @login_required
 def topic_detail(request, module_pk, topic_pk):
@@ -61,7 +64,7 @@ def topic_detail(request, module_pk, topic_pk):
         ).count()
         if max_score > 0 and (score / max_score) >= 0.75:
             result = "Zaliczono temat pomyślnie"
-        
+
         else:
             result = "Temat nie został zaliczony pomyślnie. Proszę spróbować jeszcze raz."
 
@@ -73,9 +76,7 @@ def topic_detail(request, module_pk, topic_pk):
             started_at=startTime,
             duration=timedelta(seconds=int(time)),
             passed=(score / max_score >= 0.75)
-)
-
-
+        )
     return render(request, 'coureses/topic.html', {
         'topics': topic,
         'quests': quests,
@@ -83,6 +84,6 @@ def topic_detail(request, module_pk, topic_pk):
         'course': topic.module.course,
         'score': score,
         'max_score': max_score,
-        "result": result, 
+        "result": result,
         "time": time
     })

@@ -7,6 +7,7 @@ from django.utils import timezone
 from datetime import timedelta
 from django.urls import reverse
 
+
 class QuizTest(TestCase):
 
     def setUp(self):
@@ -42,21 +43,21 @@ class QuizTest(TestCase):
         self.resTopic = ResultsTopic.objects.create(
             users=self.user,
             topic=self.topic,
-            score = score,
-            max_score = max_score,
-            started_at = timezone.now(),
-            duration = timedelta(seconds=25),
-            passed = (score/max_score >= 0.75)
+            score=score,
+            max_score=max_score,
+            started_at=timezone.now(),
+            duration=timedelta(seconds=25),
+            passed=(score/max_score >= 0.75)
         )
 
         self.resQuiz = ResultsQuiz.objects.create(
             users=self.user,
             quiz=self.quiz,
-            score = score,
-            max_score = max_score,
-            started_at = timezone.now(),
-            duration = timedelta(seconds=25),
-            passed = (score/max_score >= 0.8)
+            score=score,
+            max_score=max_score,
+            started_at=timezone.now(),
+            duration=timedelta(seconds=25),
+            passed=(score/max_score >= 0.8)
         )
 
         self.client = Client()

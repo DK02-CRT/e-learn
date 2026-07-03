@@ -7,6 +7,7 @@ from users.models import User
 
 User = get_user_model()
 
+
 class QuizTest(TestCase):
 
     def setUp(self):

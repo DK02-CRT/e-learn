@@ -1,24 +1,26 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Quiz, Quiz_Task, Quiz_Answer
+from .models import Quiz, Quiz_Answer
 from django.contrib.auth.decorators import login_required
 from datetime import timedelta
 from results.models import ResultsQuiz
 from django.utils import timezone
 
+
 @login_required
-def quizes (request):
+def quizes(request):
     quizes = Quiz.objects.all()
 
     return render(request, "quizes/quizes.html", {
         "quizes": quizes
     })
 
+
 @login_required
-def quiz_detail (request, pk):
+def quiz_detail(request, pk):
     quiz = get_object_or_404(Quiz, pk=pk)
     tasks = quiz.quizTasks.all()
     # request.session["quiz_start"] = timezone.now().isoformat()
-    
+
     score = None
     result = ""
     max_score = 0
@@ -50,7 +52,7 @@ def quiz_detail (request, pk):
         ).count()
         if max_score > 0 and (score / max_score) >= 0.8:
             result = "Zaliczono quiz pomyślnie"
-        
+
         else:
             result = "Quiz nie został zaliczony pomyślnie. Proszę spróbować jeszcze raz."
 
@@ -65,13 +67,13 @@ def quiz_detail (request, pk):
             started_at=startTime,
             duration=timedelta(seconds=int(time)),
             passed=(score / max_score >= 0.8)
-)
+        )
 
     return render(request, "quizes/quiz.html", {
         "max_score": max_score,
         "score": score,
         "quiz": quiz,
         "tasks": tasks,
-        "result": result, 
+        "result": result,
         "time": time
     })

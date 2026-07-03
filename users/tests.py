@@ -51,5 +51,3 @@ class UserTest(TestCase):
         response = self.client.get(reverse("account"))
 
         self.assertEqual(response.status_code, 302)
-
-

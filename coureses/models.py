@@ -2,6 +2,8 @@ from django.db import models
 from django_ckeditor_5.fields import CKEditor5Field
 
 # model przedmiotu
+
+
 class Course(models.Model):
     title = models.CharField(max_length=100)
     desc = models.TextField(max_length=150)
@@ -15,8 +17,10 @@ class Course(models.Model):
 
     def __str__(self):
         return self.title
-    
+
 # model modułu
+
+
 class Module(models.Model):
     course = models.ForeignKey(
         Course,
@@ -31,6 +35,8 @@ class Module(models.Model):
         return self.title
 
 # model tematu przedmiotu
+
+
 class Topic(models.Model):
     module = models.ForeignKey(
         Module,
@@ -48,6 +54,8 @@ class Topic(models.Model):
         return self.title
     
 # model pytania
+
+
 class Quest(models.Model):
     quest = models.ForeignKey(
         Topic,
@@ -60,6 +68,8 @@ class Quest(models.Model):
         return self.content
 
 # model pytania
+
+
 class Question(models.Model):
     question = models.ForeignKey(
         Quest,
@@ -76,6 +86,8 @@ class Question(models.Model):
         return self.content
 
 # model odpowiedzi
+
+
 class Answer(models.Model):
     question = models.ForeignKey(
         Question,

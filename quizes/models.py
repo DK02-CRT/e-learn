@@ -2,6 +2,7 @@ from django.db import models
 from coureses.models import Course
 from django_ckeditor_5.fields import CKEditor5Field
 
+
 class Quiz(models.Model):
     course = models.OneToOneField(
         Course,
@@ -13,6 +14,7 @@ class Quiz(models.Model):
     def __str__(self):
         return self.title
 
+
 class Quiz_Task(models.Model):
     task = models.ForeignKey(
         Quiz,
@@ -23,7 +25,8 @@ class Quiz_Task(models.Model):
 
     def __str__(self):
         return self.context
-    
+
+
 class Quiz_Answer(models.Model):
     answer = models.ForeignKey(
         Quiz_Task,
