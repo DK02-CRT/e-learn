@@ -21,7 +21,7 @@ class Quiz_Task(models.Model):
         on_delete=models.CASCADE,
         related_name='quizTasks'
     )
-    context = CKEditor5Field()
+    context = CKEditor5Field('Context', config_name='extends')
 
     def __str__(self):
         return self.context
@@ -33,7 +33,7 @@ class Quiz_Answer(models.Model):
         on_delete=models.CASCADE,
         related_name='quizAnswers'
     )
-    option = CKEditor5Field()
+    option = CKEditor5Field('Option', config_name='extends')
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):

@@ -45,7 +45,7 @@ class Topic(models.Model):
     )
     title = models.CharField(max_length=100)
     order = models.PositiveBigIntegerField(default=0)
-    content = CKEditor5Field()
+    content = CKEditor5Field('Content', config_name='extends')
 
     class Meta:
         ordering = ['order']
@@ -76,7 +76,7 @@ class Question(models.Model):
         on_delete=models.CASCADE,
         related_name='questions'
     )
-    content = CKEditor5Field()
+    content = CKEditor5Field('Content', config_name='extends')
     order = models.PositiveBigIntegerField(default=0)
 
     class Meta:
@@ -94,7 +94,7 @@ class Answer(models.Model):
         on_delete=models.CASCADE,
         related_name='answers'
     )
-    content = CKEditor5Field()
+    content = CKEditor5Field('Content', config_name='extends')
     is_correct = models.BooleanField(default=False)
 
     def __str__(self):
