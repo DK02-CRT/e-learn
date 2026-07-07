@@ -29,7 +29,7 @@
     <main>
         <h1>Quizy</h1>
         {%for quiz in quizes%}
-        <div class="task">
+        <div class="list">
             <a href="{% url 'quiz_detail' quiz.pk %}">{{quiz.title}}</a>
             </div>
         {% empty %}
