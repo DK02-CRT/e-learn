@@ -32,7 +32,7 @@
         {{ topics.content|safe }}
       </div>
       <button type="button" onclick="zadania()">Wyświetl zadania</button>
-      {% if score is not None %}
+      {% if score is not 0 %}
       <div class="result">
           <div><h2>Twój wynik</h2></div>
           <div><p>{{ score }} / {{ max_score }}</p></div>
@@ -45,11 +45,11 @@
           <form action="" method="post">
             {% csrf_token %}
             <input type="hidden" name="time" id="time">
-          {% for question in quest.questions.all %}
-            <p>{{question.content|safe}}</p>
+          {% for question in questions_data %}
+            <p>{{question.question.content|safe}}</p>
             <div class="ans">
-            {% for answer in question.answers.all %}
-              <p><input type="checkbox" name="answers" value="{{answer.id}}">{{answer.content|safe}}</p>
+            {% for answer in question.answers %}
+              <p><input type="checkbox" name="question_{{ question.question.id }}" value="{{answer.id}}">{{answer.content|safe}}</p>
             {% empty %}
               <p>BŁĄD - brakuje odpowiedzi</p>
             {% endfor %}

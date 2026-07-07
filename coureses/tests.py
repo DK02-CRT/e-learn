@@ -120,7 +120,7 @@ class CoursesTest(TestCase):
         )
 
         response = self.client.post(url, {
-            "answers": [self.correct.id],
+            f"question_{self.question.id}": [str(self.correct.id)],
             "time": "15"
         })
 
@@ -137,7 +137,7 @@ class CoursesTest(TestCase):
         )
 
         response = self.client.post(url, {
-            "answers": [self.wrong.id],
+            f"question_{self.question.id}": [str(self.wrong.id)],
             "time": "15"
         })
 

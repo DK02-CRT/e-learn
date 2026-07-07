@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Course, Module, Topic, Answer
+from .models import Course, Module, Topic, Answer, Question
 from django.contrib.auth.decorators import login_required
 from results.models import ResultsTopic
 from django.utils import timezone
@@ -34,34 +34,50 @@ def topic_detail(request, module_pk, topic_pk):
     topic = get_object_or_404(Topic, pk=topic_pk)
     quests = topic.quests.all()
 
-    score = None
+    score = 0
     selected_answers = []
     result = ""
     max_score = 0
     time = 0
+    questions_data = []
+    questions = Question.objects.filter(question__quest=topic)
+
+    for question in questions:
+        questions_data.append({
+            "question": question,
+            "answers": question.answers.order_by("?"),
+        })
 
     if request.method == "POST":
         startTime = timezone.now()
         print("dane")
         print("POST:", request.POST)
         print("TIME:", request.POST.get("time"))
-        selected_answers = request.POST.getlist("answers")
-        selected_answers = [int(i) for i in selected_answers]
+        # selected_answers = request.POST.getlist("answers")
+        # selected_answers = [int(i) for i in selected_answers]
         time = request.POST.get("time")
 
-        # wszystkie poprawne odpowiedzi w tym topicu
-        correct_answers = Answer.objects.filter(
-            question__question__quest=topic,
-            is_correct=True
-        )
 
-        max_score = correct_answers.count()
+        for question in questions:
+            max_score = max_score + 1
 
-        score = Answer.objects.filter(
-            id__in=selected_answers,
-            question__question__quest=topic,
-            is_correct=True
-        ).count()
+            correct = set(
+                question.answers.filter(is_correct=True)
+                .values_list("id", flat=True)
+            )
+
+            selected = set(
+                map(
+                    int,
+                    request.POST.getlist(f"question_{question.id}")
+                )
+            )
+            print(correct)
+            print(selected)
+            if selected == correct:
+                score = score + 1
+            
+            print(score)
         if max_score > 0 and (score / max_score) >= 0.75:
             result = "Zaliczono temat pomyślnie"
 
@@ -85,5 +101,6 @@ def topic_detail(request, module_pk, topic_pk):
         'score': score,
         'max_score': max_score,
         "result": result,
-        "time": time
+        "time": time,
+        "questions_data": questions_data,
     })
