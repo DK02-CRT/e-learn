@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from .models import Course, Module, Topic, Answer, Question
+from .models import Course, Module, Topic, Question
 from django.contrib.auth.decorators import login_required
 from results.models import ResultsTopic
 from django.utils import timezone
@@ -35,7 +35,6 @@ def topic_detail(request, module_pk, topic_pk):
     quests = topic.quests.all()
 
     score = 0
-    selected_answers = []
     result = ""
     max_score = 0
     time = 0
@@ -53,8 +52,6 @@ def topic_detail(request, module_pk, topic_pk):
         print("dane")
         print("POST:", request.POST)
         print("TIME:", request.POST.get("time"))
-        # selected_answers = request.POST.getlist("answers")
-        # selected_answers = [int(i) for i in selected_answers]
         time = request.POST.get("time")
 
 
