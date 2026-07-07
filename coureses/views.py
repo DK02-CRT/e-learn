@@ -54,7 +54,6 @@ def topic_detail(request, module_pk, topic_pk):
         print("TIME:", request.POST.get("time"))
         time = request.POST.get("time")
 
-
         for question in questions:
             max_score = max_score + 1
 
@@ -73,7 +72,7 @@ def topic_detail(request, module_pk, topic_pk):
             print(selected)
             if selected == correct:
                 score = score + 1
-            
+
             print(score)
         if max_score > 0 and (score / max_score) >= 0.75:
             result = "Zaliczono temat pomyślnie"
