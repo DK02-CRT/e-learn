@@ -52,9 +52,9 @@ Diagram reelacji dla quizu
 
 ### 2.4. Zgodność z Twelve-Factor App
 [Opisz krótko, jak projekt realizuje wybrane zasady 12-factor, np. Config, Backing Services, Statelessness]
-- [ ] Codebase - cały kod znajduje się w repozytorium e_learn
+- [ ] Codebase - cały projekt znajduje się w repozytorium e_learn
 - [ ] Dependencies - wszystkie zależności projektu znajdują się w pliku requirements.txt
-- [ ] Config - 
+- [ ] Config - jest spełniony tylko w main, w pozostałych gałęziach nie 
 - [ ] Backing Services - 
 
 ## 3. Realizacja CI/CD i Jakość Kodu
