@@ -30,7 +30,7 @@ DEBUG = False
 ALLOWED_HOSTS = ['e-learn-q2lu.onrender.com', '127.0.0.1', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ["https://e-learn-q2lu.onrender.com",]
-
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # Application definition
 
