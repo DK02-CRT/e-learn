@@ -8,11 +8,9 @@
 ---
 
 ## 1. Opis Projektu
-[Krótki opis, jaką funkcjonalność realizuje system. Jaki problem rozwiązuje?]
 System ten przedstawia system nauczania, dzięki któremu użytkownicy mogą nauczyć się nowych rzeczy i sprawdzić swoją wiedzę podchodząc do mini sprawdzianu w temacie oraz quizu kursu.
 
 ### 1.1. Zakres Funkcjonalny
-[Wypunktuj główne funkcjonalności. Zaznacz, które są wymagane dla Twojej liczby osób w zespole zgodnie z wytycznymi]
 - [ ] Wyświetlanie danych z bazy danych:
     * [ ] informacje o kursach,
     * [ ] quizach,
@@ -54,13 +52,59 @@ Diagram reelacji dla quizu
 
 ### 2.4. Zgodność z Twelve-Factor App
 [Opisz krótko, jak projekt realizuje wybrane zasady 12-factor, np. Config, Backing Services, Statelessness]
+- [ ] Codebase - cały kod znajduje się w repozytorium e_learn
+- [ ] Dependencies - wszystkie zależności projektu znajdują się w pliku requirements.txt
+- [ ] Config - 
+- [ ] Backing Services - 
 
 ## 3. Realizacja CI/CD i Jakość Kodu
 
 ### 3.1. Pipeline CI (GitHub Actions)
 [Opisz proces automatycznej weryfikacji. Wklej kluczowe fragmenty pliku `.yml`]
 ```yaml
-# Fragment pliku .github/workflows/main.yml
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_DB: ${{ secrets.DB_NAME }}
+          POSTGRES_USER: ${{ secrets.DB_USER }}
+          POSTGRES_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        ports:
+          - 5432:5432
+
+        options: >-
+          --health-cmd="pg_isready -U elearn_user"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Python
+        uses: actions/setup-python@v5
+        with: 
+          python-version: "3.10"
+
+      - name : Installing dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install flake8
+          pip install black
+
+      - name: Run flake8
+        run: |
+          flake8 . --exclude=venv,__pychache__,migrations --max-line-length=120
+
+      - name: Run black
+        run: |
+          black . --exclude=venv,__pychache__,migrations --line-length=120
+
+      - name: Running tests
+        run: python manage.py test
+
+      - name: Run migrations
+        run: python manage.py migrate
 ```
 [Wstaw diagram sekwencji procesu CI/CD]
 ```mermaid
