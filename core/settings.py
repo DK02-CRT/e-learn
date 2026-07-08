@@ -23,6 +23,7 @@ load_dotenv(BASE_DIR / ".env")
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
@@ -30,7 +31,6 @@ DEBUG = False
 ALLOWED_HOSTS = ['e-learn-q2lu.onrender.com', '127.0.0.1', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ["https://e-learn-q2lu.onrender.com",]
-SECRET_KEY = os.environ["SECRET_KEY"]
 
 # Application definition
 
