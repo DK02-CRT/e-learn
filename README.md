@@ -22,7 +22,7 @@ System ten przedstawia system nauczania, dzięki któremu użytkownicy mogą nau
 - [ ] Generowanie wyników i statystyk.
 
 ## 2. Architektura Systemu
-[Opisz architekturę wysokopoziomową aplikacji]
+Aplikacja e-learningowa została zbudowana w architekturze klient–serwer. Użytkownik korzysta z aplikacji za pomocą przeglądarki internetowej, która komunikuje się z serwerem aplikacji wykorzystując protokołu HTTP.
 
 ### 2.1. Diagram Architektury
 ```mermaid
@@ -54,13 +54,15 @@ Diagram reelacji dla quizu
 [Opisz krótko, jak projekt realizuje wybrane zasady 12-factor, np. Config, Backing Services, Statelessness]
 - [ ] Codebase - cały projekt znajduje się w repozytorium e_learn
 - [ ] Dependencies - wszystkie zależności projektu znajdują się w pliku requirements.txt
-- [ ] Config - jest spełniony tylko w main, w pozostałych gałęziach nie 
-- [ ] Backing Services - 
+- [ ] Backing Services - PostgreSQL i Render traktowane jako zewnętrzne usługi
+- [ ] Port Binding - Render mapuje port 8000 jako port publiczny
+- [ ] Dev/Prod Parity - serwer lokalny i Render używają Dockera i PostgreSQLa, więc środowiska są do siebie bardzo podobne 
+- [ ] Admin Processes - migracje, testy, i inne polecenia administracyjne są uruchamiane jako jednorazowe procesy
 
 ## 3. Realizacja CI/CD i Jakość Kodu
 
 ### 3.1. Pipeline CI (GitHub Actions)
-[Opisz proces automatycznej weryfikacji. Wklej kluczowe fragmenty pliku `.yml`]
+W pierwsze kolejności jest tworzene środowisko testowe, z wykorzystaniem usługi PostgreSQL w kontenerze Docker, następnie instalowanie zależności z pliku requirements.txt oraz lintery (flake8 i black). Po instalacji uruchamiane są pokoleji: flake8, black, testy projektu i migracje modeli.
 ```yaml
     services:
       postgres:
@@ -106,7 +108,7 @@ Diagram reelacji dla quizu
       - name: Run migrations
         run: python manage.py migrate
 ```
-[Wstaw diagram sekwencji procesu CI/CD]
+Diagram sekwencji procesu CI/CD
 ```mermaid
 sequenceDiagram
     participant Dev as Deweloper
@@ -141,7 +143,7 @@ sequenceDiagram
 ### 3.2. Testy i Pokrycie Kodu
 - **Rodzaje testów:** - Jednostkowe, Integracyjne
 - **Narzędzie do pokrycia:** - pytest-cov
-- **Wynik pokrycia:** [X]% (dołącz zrzut ekranu z raportu coverage)
+- **Wynik pokrycia:** 60%
 <img width="1532" height="333" alt="image" src="https://github.com/user-attachments/assets/0319509b-b4cd-4af1-a0c0-38e546398b73" />
 
 <img width="1545" height="858" alt="image" src="https://github.com/user-attachments/assets/a5496a34-03e6-42ab-abe1-f20c7db87734" />
@@ -153,11 +155,11 @@ sequenceDiagram
 Użyte lintery - flake8, black
 
 ### 3.4. Deployment (CD)
-[Opisz proces automatycznego wdrażania na produkcję. Na jakiej platformie?]
+W momencie gdy pipeline CI zostaje przeprowadzone pomyślnie, Render wyłapuje informację o tym. Rozpoczyna wtedy budowę obrazu Dockera, tworzy migraję bazy danych i uruchomienia aplikacji jako usługi internetowej.
 
 ## 4. Zarządzanie Projektem i Współpraca
 - **Workflow:** GitHub Flow
-- **Konwencja Commitów:** [np. Conventional Commits]
+- **Konwencja Commitów:** Conventional Commits (częściowo tylko)
 
 ## 5. Dokumentacja API
 | Metoda | Endpoint | Opis |
@@ -178,7 +180,7 @@ Użyte lintery - flake8, black
 
 
 ## 6. Podsumowanie i Wnioski
-- **Główne wyzwania:** [Co było najtrudniejsze?]
-- **Udało się zrealizować:** [Z czego jesteście najbardziej dumni?]
-- **Plany na rozwój:** [Co byście dodali, mając więcej czasu?]
-- **Wnioski z integracji:** [Refleksja na temat integrowania różnych systemów]
+- **Główne wyzwania:** Największy problem był z migracjami. Przy nie wielkich zmianach atrybutów w modelach, musiałem usunąć pliki migracyjne, żeby serwer Django dostosował się do zmian modeli.
+- **Udało się zrealizować:** Możliwość logowania się użytkowników i to, że po wielu próbach projekt się jeszcze trzyma.
+- **Plany na rozwój:** Myślałem, czy by nie dodać: systemu odznak w zależności od uzyskanych punktów czy czasu rozwiązania.
+- **Wnioski z integracji:** Trochę dużo było zamieszania, czy to z PR, CI albo budową bazy danych od nowa.
